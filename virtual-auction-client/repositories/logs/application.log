@@ -1,9 +1,0 @@
-2025-01-22 14:58:50 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
-2025-01-22 14:58:50 [main] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"signUp","name":"JohnDoe","password":"$2a$10$Hmd3vxzY5AMd42RNvuqQRe9APRt.mUYK7dGZDVJme7NDBwEbXY.Ji"}
-2025-01-22 14:58:50 [main] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"success","message":"a2a7ee29-b473-4cf9-85a1-248ea8ff3a6c"}
-2025-01-22 14:58:50 [main] INFO  auction.proxies.UserServiceProxy - User registered successfully: a2a7ee29-b473-4cf9-85a1-248ea8ff3a6c
-2025-01-22 14:58:50 [main] INFO  auction.repositories.UserRepository - User successfully added: auction.models.User@543295b0
-2025-01-22 14:58:50 [main] INFO  auction.repositories.UserRepository - Users successfully saved after adding: a2a7ee29-b473-4cf9-85a1-248ea8ff3a6c
-2025-01-22 14:58:50 [main] INFO  auction.services.UserService - User registered successfully: JohnDoe - a2a7ee29-b473-4cf9-85a1-248ea8ff3a6c
-2025-01-22 15:00:09 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
-2025-01-22 15:00:26 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
