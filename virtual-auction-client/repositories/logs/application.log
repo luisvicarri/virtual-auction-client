@@ -1,0 +1,18 @@
+2025-01-24 12:58:06 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 12:58:06 [main] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"signUp","name":"JohnDoe","password":"$2a$10$HQLidCv0zv2lFB7HAOcN.eFBhe8fiydQZciujH9n9ERZzoRLZyygq"}
+2025-01-24 12:58:06 [main] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"success","message":"000edb28-a61f-4c7d-840f-22ea46074d84"}
+2025-01-24 12:58:06 [main] INFO  auction.proxies.UserServiceProxy - User registered successfully: 000edb28-a61f-4c7d-840f-22ea46074d84
+2025-01-24 12:58:06 [main] INFO  auction.repositories.UserRepository - User successfully added: auction.models.User@235ecd9f
+2025-01-24 12:58:06 [main] INFO  auction.repositories.UserRepository - Users successfully saved after adding: 000edb28-a61f-4c7d-840f-22ea46074d84
+2025-01-24 12:58:06 [main] INFO  auction.services.UserService - User registered successfully: JohnDoe - 000edb28-a61f-4c7d-840f-22ea46074d84
+2025-01-24 12:59:29 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 13:03:33 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 13:04:12 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 14:40:57 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 14:48:41 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 15:02:16 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 15:02:51 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 15:30:28 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 15:32:59 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 15:37:31 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-24 15:39:28 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
