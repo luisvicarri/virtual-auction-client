@@ -1,23 +1,54 @@
 package auction.views.panels;
 
+import auction.controllers.SessionController;
+import auction.main.ClientAuctionApp;
+import auction.models.User;
+import auction.utils.FontUtil;
+import auction.utils.ImageUtil;
 import auction.views.components.ScrollBarCustom;
 import auction.views.panels.templates.Message;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 public class Auction extends javax.swing.JPanel {
 
+    private final ImageUtil imageUtil;
+    private final FontUtil fontUtil;
+    
     public Auction() {
         initComponents();
+        imageUtil = new ImageUtil();
+        fontUtil = new FontUtil();
+        customizeComponents();
         pnMessageDisplay.setLayout(null);
         spMessageDisplay.setVerticalScrollBar(new ScrollBarCustom());
         List<String> messages = loadContent();
         addMessage(messages);
+        
+        User userLogged = ClientAuctionApp.frame.userController.getUserLogged(SessionController.getInstance());
+        lbUsername.setText(userLogged.getName());
     }
 
+    private void customizeComponents() {
+        String path = "views/fonts/Questrial-Regular.ttf";
+
+        Map<JComponent, Float> components = Map.of(
+                lbUsername, 18f
+        );
+
+        fontUtil.applyFont(components, path);
+        
+        ImageIcon originalIcon = imageUtil.createImageIcon("/views/icons/icUserImage.png");
+        ImageIcon resizedIcon = imageUtil.resizeIcon(originalIcon, 35, 35);
+        lbUser.setIcon(resizedIcon);
+    }
+    
     private List<String> loadContent() {
         List<String> messages = new ArrayList<>();
 
@@ -93,6 +124,7 @@ public class Auction extends javax.swing.JPanel {
         lbBidNow = new javax.swing.JLabel();
         lbWinningBidder = new javax.swing.JLabel();
         lbAuction = new javax.swing.JLabel();
+        lbUsername = new javax.swing.JLabel();
         spMessageDisplay = new javax.swing.JScrollPane();
         pnMessageDisplay = new javax.swing.JPanel();
         lbBackground = new javax.swing.JLabel();
@@ -102,7 +134,6 @@ public class Auction extends javax.swing.JPanel {
         lbUser.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbUser.setForeground(new java.awt.Color(255, 255, 255));
         lbUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lbUser.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(lbUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(1181, 15, 30, 30));
 
@@ -146,6 +177,12 @@ public class Auction extends javax.swing.JPanel {
         lbAuction.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(lbAuction, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 144, 378, 26));
 
+        lbUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbUsername.setForeground(new java.awt.Color(255, 255, 255));
+        lbUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbUsername.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(lbUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(1061, 15, 120, 30));
+
         spMessageDisplay.setBackground(new java.awt.Color(232, 232, 232));
         spMessageDisplay.setBorder(null);
         spMessageDisplay.setForeground(new java.awt.Color(232, 232, 232));
@@ -186,6 +223,7 @@ public class Auction extends javax.swing.JPanel {
     private javax.swing.JLabel lbTimer;
     private javax.swing.JLabel lbTitle;
     private javax.swing.JLabel lbUser;
+    private javax.swing.JLabel lbUsername;
     private javax.swing.JLabel lbWinningBidder;
     private javax.swing.JPanel pnMessageDisplay;
     private javax.swing.JScrollPane spMessageDisplay;

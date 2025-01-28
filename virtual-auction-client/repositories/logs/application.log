@@ -41,3 +41,29 @@
 2025-01-28 11:27:25 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
 2025-01-28 11:30:49 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
 2025-01-28 11:32:39 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-28 11:44:07 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-28 11:44:53 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-28 13:24:02 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-28 13:25:48 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-28 13:48:14 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-28 13:52:24 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-28 15:55:27 [main] INFO  auction.utils.MulticastUtil - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-28 15:55:27 [main] INFO  auction.utils.MulticastUtil - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-28 15:55:27 [main] INFO  auction.utils.MulticastUtil - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-28 15:55:27 [main] INFO  auction.utils.MulticastUtil - Waiting for multicast message...
+2025-01-28 15:59:56 [main] INFO  auction.utils.MulticastUtil - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-28 15:59:56 [main] INFO  auction.utils.MulticastUtil - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-28 15:59:56 [main] INFO  auction.utils.MulticastUtil - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-28 15:59:56 [main] INFO  auction.utils.MulticastUtil - Sending message: CLIENT_CONNECTED
+2025-01-28 15:59:56 [main] INFO  auction.utils.MulticastUtil - Waiting for multicast message...
+2025-01-28 15:59:56 [main] INFO  auction.utils.MulticastUtil - Message received: CLIENT_CONNECTED
+2025-01-28 15:59:56 [main] INFO  auction.utils.MulticastUtil - Waiting for multicast message...
+2025-01-28 15:59:56 [main] INFO  auction.utils.MulticastUtil - Message received: Mensagem do servidor #1
+2025-01-28 15:59:56 [main] INFO  auction.utils.MulticastUtil - Waiting for multicast message...
+2025-01-28 15:59:58 [main] INFO  auction.utils.MulticastUtil - Message received: Mensagem do servidor #2
+2025-01-28 15:59:58 [main] INFO  auction.utils.MulticastUtil - Waiting for multicast message...
+2025-01-28 16:00:00 [main] INFO  auction.utils.MulticastUtil - Message received: Mensagem do servidor #3
+2025-01-28 16:00:00 [main] INFO  auction.utils.MulticastUtil - Waiting for multicast message...
+2025-01-28 16:00:02 [main] INFO  auction.utils.MulticastUtil - Message received: Mensagem do servidor #4
+2025-01-28 16:00:02 [main] INFO  auction.utils.MulticastUtil - Leaving multicast group 230.0.0.1:5000.
+2025-01-28 16:00:02 [main] INFO  auction.utils.MulticastUtil - Successfully disconnected from multicast group.

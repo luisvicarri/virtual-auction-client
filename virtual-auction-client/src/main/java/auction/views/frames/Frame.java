@@ -1,5 +1,7 @@
 package auction.views.frames;
 
+import auction.controllers.ItemController;
+import auction.controllers.UserController;
 import auction.views.panels.Auction;
 import auction.views.panels.SignIn;
 import auction.views.panels.SignUp;
@@ -8,14 +10,19 @@ import javax.swing.JPanel;
 
 public class Frame extends javax.swing.JFrame {
 
+    public UserController userController;
+    public ItemController itemController;
+
     public static SignIn signIn;
     public static SignUp signUp;
     public static Auction auction;
     
-    public Frame() {
+    public Frame(UserController userController, ItemController itemController) {
         initComponents();
+        this.userController = userController;
+        this.itemController = itemController;
     }
-    
+
     public void start() {
         this.setLayout(new BorderLayout());
 
@@ -24,7 +31,7 @@ public class Frame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-    
+
     public void initNewPanel(JPanel newJPanel) {
         this.getContentPane().removeAll();
         this.add(newJPanel, BorderLayout.CENTER);
