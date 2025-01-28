@@ -5,6 +5,7 @@ import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import javax.swing.JComponent;
 
 public class FontUtil {
@@ -30,11 +31,20 @@ public class FontUtil {
         }
     }
 
-    public void applyFont(JComponent component, Font font) {
-        if (font != null) {
-            component.setFont(font);
-        } else {
-            System.err.println("A fonte fornecida é nula. O componente não foi modificado.");
+    public void applyFont(Map<JComponent, Float> components, String fontPath) {
+        try {
+            for (Map.Entry<JComponent, Float> entry : components.entrySet()) {
+                JComponent component = entry.getKey();
+                Float size = entry.getValue();
+
+                // Carrega a fonte e aplica ao componente
+                Font font = loadFont(fontPath, size);
+                if (font != null) {
+                    component.setFont(font);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao aplicar fontes nos componentes: " + e.getMessage());
         }
     }
 }

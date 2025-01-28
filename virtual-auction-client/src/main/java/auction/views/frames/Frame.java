@@ -1,5 +1,6 @@
 package auction.views.frames;
 
+import auction.views.panels.Auction;
 import auction.views.panels.SignIn;
 import auction.views.panels.SignUp;
 import java.awt.BorderLayout;
@@ -9,6 +10,7 @@ public class Frame extends javax.swing.JFrame {
 
     public static SignIn signIn;
     public static SignUp signUp;
+    public static Auction auction;
     
     public Frame() {
         initComponents();
@@ -17,8 +19,8 @@ public class Frame extends javax.swing.JFrame {
     public void start() {
         this.setLayout(new BorderLayout());
 
-        signIn = new SignIn();
-        initNewPanel(signIn);
+        auction = new Auction();
+        initNewPanel(auction);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }

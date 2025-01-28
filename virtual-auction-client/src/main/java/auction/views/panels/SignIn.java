@@ -4,32 +4,33 @@ import auction.main.ClientAuctionApp;
 import auction.utils.FontUtil;
 import auction.views.frames.Frame;
 import java.awt.Font;
+import java.util.Map;
+import javax.swing.JComponent;
 
 public class SignIn extends javax.swing.JPanel {
 
-    private FontUtil fontUtil;
+    private final FontUtil fontUtil;
 
     public SignIn() {
         initComponents();
+        fontUtil = new FontUtil();
         customizeComponents();
     }
 
     private void customizeComponents() {
-        fontUtil = new FontUtil();
         String path = "views/fonts/Questrial-Regular.ttf";
 
-        Font font = fontUtil.loadFont(path, 14f);
-        fontUtil.applyFont(lbName, font);
-        fontUtil.applyFont(lbPassword, font);
-        fontUtil.applyFont(lbSignIn, font);
-        fontUtil.applyFont(lbSignUp, font);
+        Map<JComponent, Float> components = Map.of(
+                lbText, 32f,
+                lbName, 14f,
+                lbPassword, 14f,
+                lbSignIn, 14f,
+                lbSignUp, 14f,
+                tfName, 12f,
+                jpfPassword, 12f
+        );
 
-        font = fontUtil.loadFont(path, 12f);
-        fontUtil.applyFont(tfName, font);
-        fontUtil.applyFont(jpfPassword, font);
-
-        font = fontUtil.loadFont(path, 32f);
-        fontUtil.applyFont(lbText, font);
+        fontUtil.applyFont(components, path);
     }
 
     @SuppressWarnings("unchecked")
@@ -106,7 +107,7 @@ public class SignIn extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSignInMouseClicked
-        
+
     }//GEN-LAST:event_lbSignInMouseClicked
 
     private void lbSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSignUpMouseClicked
