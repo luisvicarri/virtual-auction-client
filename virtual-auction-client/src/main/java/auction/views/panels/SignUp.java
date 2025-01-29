@@ -145,7 +145,7 @@ public class SignUp extends javax.swing.JPanel {
             String plainPassword = new String(jpfPassword.getPassword());
             String hashedPassword = ClientAuctionApp.frame.getAppController().getUserController().hashPassword(plainPassword);
             User newUser = new User(name, plainPassword, hashedPassword);
-            
+
             boolean signedUp = ClientAuctionApp.frame.getAppController().getUserController().signUp(newUser);
             if (signedUp) {
                 logger.info("Signed up user"); // Requisitos cumpridos
@@ -155,6 +155,8 @@ public class SignUp extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Failed to sign up user", "WARN", JOptionPane.ERROR_MESSAGE);
             }
             ClientAuctionApp.frame.clearForm(tfName, jpfPassword, jpfConfirmPass);
+            Frame.signIn = new SignIn();
+            ClientAuctionApp.frame.initNewPanel(Frame.signIn);
         }
     }//GEN-LAST:event_lbSignUpMouseClicked
 

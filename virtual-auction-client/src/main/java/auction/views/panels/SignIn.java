@@ -128,7 +128,14 @@ public class SignIn extends javax.swing.JPanel {
                 logger.warn("Failed to sign in user"); // Requisitos cumpridos
                 JOptionPane.showMessageDialog(null, "Failed to sign in user", "WARN", JOptionPane.ERROR_MESSAGE);
             }
+
+            ClientAuctionApp.frame.getAppController().getMulticastController().connect();
+            ClientAuctionApp.frame.getAppController().getMulticastController().send("CLIENT_CONNECTED");
+            System.out.println("Cliente enviou mensagem de registro ao servidor.");
+
             ClientAuctionApp.frame.clearForm(tfName, jpfPassword);
+            Frame.auction = new Auction();
+            ClientAuctionApp.frame.initNewPanel(Frame.auction);
         }
     }//GEN-LAST:event_lbSignInMouseClicked
 

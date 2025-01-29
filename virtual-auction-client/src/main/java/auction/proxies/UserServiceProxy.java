@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -38,7 +40,15 @@ public class UserServiceProxy implements UserServiceInterface {
                 id
         );
         Response response = sendRequest(request);
-        return response != null && "SUCCESS".equals(response.getStatus());
+        if (response != null && "SUCCESS".equals(response.getStatus())) {
+            if (response.getData().isPresent()) {
+                Map<String, Object> data = response.getData().orElse(new HashMap<>());
+                ConfigManager.set("MULTICAST_ADDRESS", data.get("MULTICAST_ADDRESS").toString());
+            }
+            return true;
+        }
+
+        return false;
     }
 
     @Override
