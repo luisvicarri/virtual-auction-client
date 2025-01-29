@@ -23,4 +23,7 @@ public class UserController {
         return service.insert(newUser);
     }
     
+    public String hashPassword(String password) {
+        return service.hashPassword(password);
+    }
 }

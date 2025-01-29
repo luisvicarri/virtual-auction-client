@@ -1,8 +1,6 @@
 package auction.main;
 
 import auction.controllers.AppController;
-import auction.models.User;
-import auction.utils.PasswordUtil;
 
 public class Seeding {
 
@@ -13,17 +11,8 @@ public class Seeding {
     }
     
     public void start() {
-        String name = "JohnDoe";
-        String plainPassword = "securePassword";
-        String hashedPassword = PasswordUtil.hashPassword(plainPassword);
-        System.out.println("Registering user...");
-        User newUser = new User(name, plainPassword, hashedPassword);
-        boolean isRegistered = appController.getUserController().signUp(newUser);
-        if (isRegistered) {
-            System.out.println("User registered successfully!");
-        } else {
-            System.out.println("Failed to register user.");
-        }
+
+
     }
 
 }

@@ -4,6 +4,7 @@ import auction.controllers.SessionController;
 import auction.models.User;
 import auction.proxies.UserServiceProxy;
 import auction.repositories.UserRepository;
+import auction.utils.PasswordUtil;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,5 +55,9 @@ public class UserService {
 
     public User getUserLogged(SessionController session) {
         return session.getUserLogged();
+    }
+    
+    public String hashPassword(String password) {
+        return PasswordUtil.hashPassword(password);
     }
 }

@@ -118,28 +118,18 @@ public class SignIn extends javax.swing.JPanel {
             logger.warn("The form contains unfilled fields");
             JOptionPane.showMessageDialog(null, "The form contains unfilled fields", "WARNING", JOptionPane.INFORMATION_MESSAGE);
         } else {
-
-//            if (!validator.isValidPassword(new String(jpfPassword.getPassword()))) { // Se a senha é compatível com o formato requisitado
-//                logger.warn("Invalid password format");
-//                JOptionPane.showMessageDialog(null, "Invalid password format", "WARNING", JOptionPane.INFORMATION_MESSAGE);
-//            } else {
-             
-                String name = tfName.getText();
-                String password = new String(jpfPassword.getPassword());
-                boolean signIn = ClientAuctionApp.frame.getAppController().getUserController().signIn(name, password, SessionController.getInstance());
-                if (signIn) {
-                    logger.info("Logged in user"); // Requisitos cumpridos
-                    JOptionPane.showMessageDialog(null, "Logged in user", "INFO", JOptionPane.PLAIN_MESSAGE);
-                } else {
-                    logger.warn("Failed to sign in user"); // Requisitos cumpridos
-                    JOptionPane.showMessageDialog(null, "Failed to sign in user", "WARN", JOptionPane.ERROR_MESSAGE);
-                }
-
-//            }
-
+            String name = tfName.getText();
+            String password = new String(jpfPassword.getPassword());
+            boolean signIn = ClientAuctionApp.frame.getAppController().getUserController().signIn(name, password, SessionController.getInstance());
+            if (signIn) {
+                logger.info("Logged in user"); // Requisitos cumpridos
+                JOptionPane.showMessageDialog(null, "Logged in user", "INFO", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                logger.warn("Failed to sign in user"); // Requisitos cumpridos
+                JOptionPane.showMessageDialog(null, "Failed to sign in user", "WARN", JOptionPane.ERROR_MESSAGE);
+            }
+            ClientAuctionApp.frame.clearForm(tfName, jpfPassword);
         }
-
-
     }//GEN-LAST:event_lbSignInMouseClicked
 
     private void lbSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSignUpMouseClicked

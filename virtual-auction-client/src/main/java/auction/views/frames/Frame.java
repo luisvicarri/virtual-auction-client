@@ -5,7 +5,10 @@ import auction.views.panels.Auction;
 import auction.views.panels.SignIn;
 import auction.views.panels.SignUp;
 import java.awt.BorderLayout;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class Frame extends javax.swing.JFrame {
 
@@ -37,6 +40,16 @@ public class Frame extends javax.swing.JFrame {
         this.getContentPane().removeAll();
         this.add(newJPanel, BorderLayout.CENTER);
         this.pack();
+    }
+    
+    public void clearForm(JComponent... components) {
+        for (JComponent component : components) {
+            if (component instanceof JTextField) {
+                ((JTextField) component).setText("");
+            } else if (component instanceof JPasswordField) {
+                ((JPasswordField) component).setText("");
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

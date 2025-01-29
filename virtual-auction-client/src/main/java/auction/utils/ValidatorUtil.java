@@ -32,5 +32,9 @@ public class ValidatorUtil {
         }
         return false; // Nenhum campo vazio
     }
+    
+    public boolean passAreTheSame(String pass, String clonePass) {
+        return pass.equals(clonePass);
+    }
 
 }
