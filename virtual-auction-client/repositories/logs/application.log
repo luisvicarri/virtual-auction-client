@@ -67,3 +67,140 @@
 2025-01-28 16:00:02 [main] INFO  auction.utils.MulticastUtil - Message received: Mensagem do servidor #4
 2025-01-28 16:00:02 [main] INFO  auction.utils.MulticastUtil - Leaving multicast group 230.0.0.1:5000.
 2025-01-28 16:00:02 [main] INFO  auction.utils.MulticastUtil - Successfully disconnected from multicast group.
+2025-01-29 10:15:01 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Invalid password format
+2025-01-29 10:15:12 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Invalid password format
+2025-01-29 10:15:27 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - The form contains unfilled fields
+2025-01-29 10:20:53 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - The form contains unfilled fields
+2025-01-29 10:21:01 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Valid fields
+2025-01-29 10:21:02 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Valid fields
+2025-01-29 10:21:03 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Valid fields
+2025-01-29 10:21:04 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Valid fields
+2025-01-29 10:21:07 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Valid fields
+2025-01-29 10:21:07 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Valid fields
+2025-01-29 10:21:07 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Valid fields
+2025-01-29 10:21:54 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - The form contains unfilled fields
+2025-01-29 10:21:58 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - The form contains unfilled fields
+2025-01-29 10:22:04 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Invalid password format
+2025-01-29 10:22:17 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Invalid password format
+2025-01-29 10:22:43 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Invalid password format
+2025-01-29 10:23:35 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Invalid password format
+2025-01-29 10:24:32 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Valid fields
+2025-01-29 10:24:44 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Invalid password format
+2025-01-29 12:54:22 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 12:54:48 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Invalid password format
+2025-01-29 12:56:02 [AWT-EventQueue-0] ERROR auction.proxies.UserServiceProxy - Failed to establish connection with the server at localhost:8080
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:593)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at java.base/java.net.Socket.connect(Socket.java:583)
+	at java.base/java.net.Socket.<init>(Socket.java:507)
+	at java.base/java.net.Socket.<init>(Socket.java:287)
+	at auction.proxies.UserServiceProxy.sendRequest(UserServiceProxy.java:65)
+	at auction.proxies.UserServiceProxy.signIn(UserServiceProxy.java:40)
+	at auction.services.UserService.signIn(UserService.java:26)
+	at auction.controllers.UserController.signIn(UserController.java:19)
+	at auction.views.panels.SignIn.lbSignInMouseClicked(SignIn.java:129)
+	at auction.views.panels.SignIn$2.mouseClicked(SignIn.java:101)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6629)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3389)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6391)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:5001)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4833)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4584)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4833)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:716)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:97)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:746)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:744)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:743)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+2025-01-29 13:15:33 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-IN\",\"name\":\"JohnDoe\",\"password\":\"securePassword\",\"id\":{\"empty\":false,\"present\":true}}"
+2025-01-29 13:15:33 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"error\",\"message\":\"Invalid request\"}"
+2025-01-29 14:02:31 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-IN\",\"name\":\"JohnDoe\",\"password\":\"securePassword\",\"id\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:02:31 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"FAILED\",\"message\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:04:25 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-IN\",\"name\":\"JohnDoe\",\"password\":\"securePassword\",\"id\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:04:25 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"FAILED\",\"message\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:06:56 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-IN\",\"name\":\"JohnDoe\",\"password\":\"securePassword\",\"id\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:06:56 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"FAILED\",\"message\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:08:02 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-IN\",\"name\":\"JohnDoe\",\"password\":\"securePassword\",\"id\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:08:02 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"FAILED\",\"message\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:16:51 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-IN\",\"name\":\"JohnDoe\",\"password\":\"$2a$10$Rsh59xolw8Ya/JUawb5kxuCbREW.56STTYy2AVOHObEgJKHk6ONaG\",\"id\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:16:51 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"FAILED\",\"message\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:21:12 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 14:21:40 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-IN\",\"name\":\"JohnDoe\",\"password\":\"$2a$10$noiHtFqfRWw.c5Xnbpj0WeuIOsgDZ.kL../r.NFXMehzj8VKXnNq.\",\"id\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:21:40 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"FAILED\",\"message\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:21:40 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Failed to sign in user
+2025-01-29 14:22:47 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 14:26:51 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-IN\",\"name\":\"JohnDoe\",\"password\":\"securePassword\",\"id\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:26:51 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"FAILED\",\"message\":\"53bcc6fc-9e8d-4175-b95b-fa76abb772a8\"}"
+2025-01-29 14:26:51 [AWT-EventQueue-0] WARN  auction.views.panels.SignIn - Failed to sign in user
+2025-01-29 14:30:39 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 14:31:37 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 14:32:58 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 14:38:24 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 14:38:24 [main] INFO  auction.services.UserService - Username already in the server
+2025-01-29 14:41:28 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 14:41:28 [main] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-UP\",\"name\":\"JohnDoe\",\"password\":\"$2a$10$kHG7yl1J5g03T/mBpjx8kOCB85tmzi9eRmT390I/AVGGNT6NyapJq\",\"id\":null}"
+2025-01-29 14:41:29 [main] INFO  auction.proxies.UserServiceProxy - Received response from server: null
+2025-01-29 15:01:35 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 15:01:35 [main] ERROR auction.proxies.UserServiceProxy - Failed to establish connection with the server at localhost:8080
+java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:593)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at java.base/java.net.Socket.connect(Socket.java:583)
+	at java.base/java.net.Socket.<init>(Socket.java:507)
+	at java.base/java.net.Socket.<init>(Socket.java:287)
+	at auction.proxies.UserServiceProxy.sendRequest(UserServiceProxy.java:64)
+	at auction.proxies.UserServiceProxy.insert(UserServiceProxy.java:51)
+	at auction.services.UserService.insert(UserService.java:42)
+	at auction.controllers.UserController.signUp(UserController.java:23)
+	at auction.main.Seeding.start(Seeding.java:21)
+	at auction.main.ClientAuctionApp.main(ClientAuctionApp.java:13)
+2025-01-29 15:02:04 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 15:02:04 [main] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-UP\",\"name\":\"JohnDoe\",\"password\":\"$2a$10$opEpSnnBbYJUttvKd6xsjO3gfbStN/E7sLL7ziOfp1/7YLrvolKw6\",\"id\":{\"empty\":true,\"present\":false}}"
+2025-01-29 15:02:04 [main] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"error\",\"message\":\"Invalid request\"}"
+2025-01-29 15:02:04 [main] WARN  auction.proxies.UserServiceProxy - Failed to register user: Invalid request
+2025-01-29 15:02:04 [main] INFO  auction.repositories.UserRepository - User successfully added: auction.models.User@5386659f
+2025-01-29 15:02:04 [main] WARN  auction.repositories.UserRepository - Removed null key from users map before saving.
+2025-01-29 15:02:04 [main] INFO  auction.repositories.UserRepository - Users successfully saved after adding: null
+2025-01-29 15:13:51 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 15:13:51 [main] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-UP\",\"name\":\"JohnDoe\",\"password\":\"$2a$10$49DZoIRjOi8yAhtBj8Byoel5RPFOuAC0WB7F0Z5T3rTSoyEBvTV1i\",\"id\":null}"
+2025-01-29 15:13:51 [main] INFO  auction.proxies.UserServiceProxy - Received response from server: null
+2025-01-29 15:20:21 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 15:20:21 [main] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-UP\",\"name\":\"JohnDoe\",\"password\":\"$2a$10$dNjLBWSQg.RKfJ6QSatAv.e2VmEyMtP3hlH..D6dw5l8Qjyy/pCzW\",\"id\":null}"
+2025-01-29 15:20:21 [main] INFO  auction.proxies.UserServiceProxy - Received response from server: null
+2025-01-29 15:24:24 [main] INFO  auction.services.UserService - Attempting to register user: JohnDoe
+2025-01-29 15:24:24 [main] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-UP\",\"name\":\"JohnDoe\",\"password\":\"$2a$10$umfi1RXGjAJjk29CKByq0.ZM0uce.FX6ZxNlzO1Fy1MqV9whr3n3K\",\"id\":null}"
+2025-01-29 15:24:24 [main] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"SUCCESS\",\"message\":\"65b4544b-0279-4824-a288-3f7febba3343\"}"
+2025-01-29 15:24:24 [main] INFO  auction.proxies.UserServiceProxy - User registered successfully: 65b4544b-0279-4824-a288-3f7febba3343
+2025-01-29 15:24:24 [main] INFO  auction.repositories.UserRepository - User successfully added: auction.models.User@5e3f861
+2025-01-29 15:24:24 [main] INFO  auction.repositories.UserRepository - Users successfully saved after adding: 65b4544b-0279-4824-a288-3f7febba3343
+2025-01-29 15:24:24 [main] INFO  auction.services.UserService - User registered successfully: JohnDoe - 65b4544b-0279-4824-a288-3f7febba3343
+2025-01-29 15:24:41 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: "{\"action\":\"SIGN-IN\",\"name\":\"JohnDoe\",\"password\":\"securePassword\",\"id\":\"65b4544b-0279-4824-a288-3f7febba3343\"}"
+2025-01-29 15:24:41 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: "{\"status\":\"SUCCESS\",\"message\":\"Optional[65b4544b-0279-4824-a288-3f7febba3343]\"}"
+2025-01-29 15:24:41 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user

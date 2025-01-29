@@ -4,6 +4,7 @@ import auction.controllers.SessionController;
 import auction.models.User;
 import auction.proxies.UserServiceProxy;
 import auction.repositories.UserRepository;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,9 +19,23 @@ public class UserService {
         this.proxy = proxy;
     }
 
+    public boolean signIn(String name, String password, SessionController session) {
+        Optional<User> userOptional = repository.findByUsername(name);
+        if (userOptional.isPresent()) {
+            User userFinded = userOptional.get();
+            if (proxy.signIn(Optional.of(userFinded.getId()), name, password)) {
+                session.logIn(userFinded);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean insert(User newUser) {
         logger.info("Attempting to register user: {}", newUser.getName());
-        if (findByUsername(newUser.getName()) != null) {
+        if (repository.findByUsername(newUser.getName()).isPresent()) {
+            logger.info("Username already in the server");
             return false;
         }
 
@@ -31,18 +46,10 @@ public class UserService {
             logger.info("User registered successfully: {} - {}", newUser.getName(), newUser.getId().toString());
             return true;
         } else {
-            logger.warn("Failed to register user: {} - {}", newUser.getName(), newUser.getId().toString());
+            logger.warn("Failed to register user: {}", newUser.getName());
             return false;
         }
 
-    }
-
-    public User findByUsername(String name) {
-        return repository.getUsers().values()
-                .stream()
-                .filter(user -> user.getName().equals(name))
-                .findFirst()
-                .orElse(null);
     }
 
     public User getUserLogged(SessionController session) {

@@ -1,19 +1,26 @@
 package auction.views.panels;
 
+import auction.controllers.SessionController;
 import auction.main.ClientAuctionApp;
 import auction.utils.FontUtil;
+import auction.utils.ValidatorUtil;
 import auction.views.frames.Frame;
-import java.awt.Font;
 import java.util.Map;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SignIn extends javax.swing.JPanel {
 
+    private static final Logger logger = LoggerFactory.getLogger(SignIn.class);
     private final FontUtil fontUtil;
+    private final ValidatorUtil validator;
 
     public SignIn() {
         initComponents();
         fontUtil = new FontUtil();
+        validator = new ValidatorUtil();
         customizeComponents();
     }
 
@@ -85,7 +92,7 @@ public class SignIn extends javax.swing.JPanel {
         add(lbSignUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 396, 310, 43));
 
         lbSignIn.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
-        lbSignIn.setForeground(new java.awt.Color(0, 0, 0));
+        lbSignIn.setForeground(new java.awt.Color(255, 255, 255));
         lbSignIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbSignIn.setText("Sign In");
         lbSignIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -107,6 +114,31 @@ public class SignIn extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSignInMouseClicked
+        if (validator.areFieldsEmpty(tfName, jpfPassword)) { // Se existem campos nulos
+            logger.warn("The form contains unfilled fields");
+            JOptionPane.showMessageDialog(null, "The form contains unfilled fields", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+
+//            if (!validator.isValidPassword(new String(jpfPassword.getPassword()))) { // Se a senha é compatível com o formato requisitado
+//                logger.warn("Invalid password format");
+//                JOptionPane.showMessageDialog(null, "Invalid password format", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+//            } else {
+             
+                String name = tfName.getText();
+                String password = new String(jpfPassword.getPassword());
+                boolean signIn = ClientAuctionApp.frame.getAppController().getUserController().signIn(name, password, SessionController.getInstance());
+                if (signIn) {
+                    logger.info("Logged in user"); // Requisitos cumpridos
+                    JOptionPane.showMessageDialog(null, "Logged in user", "INFO", JOptionPane.PLAIN_MESSAGE);
+                } else {
+                    logger.warn("Failed to sign in user"); // Requisitos cumpridos
+                    JOptionPane.showMessageDialog(null, "Failed to sign in user", "WARN", JOptionPane.ERROR_MESSAGE);
+                }
+
+//            }
+
+        }
+
 
     }//GEN-LAST:event_lbSignInMouseClicked
 

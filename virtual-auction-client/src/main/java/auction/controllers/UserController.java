@@ -15,8 +15,12 @@ public class UserController {
         return service.getUserLogged(session);
     }
     
-    public void signUp(User newUser) {
-        
+    public boolean signIn(String name, String password, SessionController session) {
+        return service.signIn(name, password, session);
+    }
+    
+    public boolean signUp(User newUser) {
+        return service.insert(newUser);
     }
     
 }

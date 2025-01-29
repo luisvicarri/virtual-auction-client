@@ -1,6 +1,7 @@
 package auction.views.panels;
 
 import auction.controllers.SessionController;
+import auction.controllers.UserController;
 import auction.main.ClientAuctionApp;
 import auction.models.User;
 import auction.utils.FontUtil;
@@ -31,7 +32,8 @@ public class Auction extends javax.swing.JPanel {
         List<String> messages = loadContent();
         addMessage(messages);
         
-        User userLogged = ClientAuctionApp.frame.userController.getUserLogged(SessionController.getInstance());
+        UserController controller = ClientAuctionApp.frame.getAppController().getUserController();
+        User userLogged = controller.getUserLogged(SessionController.getInstance());
         lbUsername.setText(userLogged.getName());
     }
 

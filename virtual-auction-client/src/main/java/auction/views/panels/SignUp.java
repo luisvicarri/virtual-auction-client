@@ -89,7 +89,7 @@ public class SignUp extends javax.swing.JPanel {
         add(lbSignIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 439, 310, 45));
 
         lbSignUp.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
-        lbSignUp.setForeground(new java.awt.Color(0, 0, 0));
+        lbSignUp.setForeground(new java.awt.Color(255, 255, 255));
         lbSignUp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbSignUp.setText("Sign Up");
         lbSignUp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
