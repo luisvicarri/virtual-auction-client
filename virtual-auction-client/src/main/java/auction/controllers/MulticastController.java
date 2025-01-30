@@ -1,6 +1,7 @@
 package auction.controllers;
 
 import auction.services.MulticastService;
+import java.util.function.Consumer;
 
 public class MulticastController {
     
@@ -32,6 +33,10 @@ public class MulticastController {
     
     public <T> T receiveObject(Class<T> type) {
         return service.receiveObject(type);
+    }
+    
+    public void startListening(Consumer<String> onMessageReceived) {
+        service.startListening(onMessageReceived);
     }
     
 }

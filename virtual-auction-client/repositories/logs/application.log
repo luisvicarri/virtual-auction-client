@@ -24,3 +24,346 @@
 2025-01-29 17:52:30 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
 2025-01-29 17:52:30 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
 2025-01-29 17:52:30 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 10:57:50 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 10:57:50 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 10:57:50 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 10:57:52 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 10:57:52 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 10:57:52 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 10:57:52 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 10:57:53 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Received JSON message: CLIENT_CONNECTED
+2025-01-30 10:57:53 [AWT-EventQueue-0] ERROR auction.services.MulticastService - Error deserializing JSON.
+com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'CLIENT_CONNECTED': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (String)"CLIENT_CONNECTED"; line: 1, column: 17]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2477)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:760)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3041)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2082)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:808)
+	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4912)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4818)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3772)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3740)
+	at auction.services.MulticastService.receiveObject(MulticastService.java:126)
+	at auction.controllers.MulticastController.receiveObject(MulticastController.java:34)
+	at auction.views.panels.Auction.loadAuctionContent(Auction.java:70)
+	at auction.views.panels.Auction.<init>(Auction.java:33)
+	at auction.views.panels.SignIn.lbSignInMouseClicked(SignIn.java:137)
+	at auction.views.panels.SignIn$2.mouseClicked(SignIn.java:101)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6629)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3389)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6391)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:5001)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4833)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4584)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4833)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:716)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:97)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:746)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:744)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:743)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+2025-01-30 10:59:14 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 10:59:15 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 10:59:15 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 10:59:16 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 10:59:17 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 10:59:17 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 10:59:17 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 10:59:17 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Received JSON message: CLIENT_CONNECTED
+2025-01-30 10:59:17 [AWT-EventQueue-0] ERROR auction.services.MulticastService - Error deserializing JSON.
+com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'CLIENT_CONNECTED': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (String)"CLIENT_CONNECTED"; line: 1, column: 17]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2477)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:760)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3041)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2082)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:808)
+	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4912)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4818)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3772)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3740)
+	at auction.services.MulticastService.receiveObject(MulticastService.java:126)
+	at auction.controllers.MulticastController.receiveObject(MulticastController.java:34)
+	at auction.views.panels.Auction.loadAuctionContent(Auction.java:70)
+	at auction.views.panels.Auction.<init>(Auction.java:33)
+	at auction.views.panels.SignIn.lbSignInMouseClicked(SignIn.java:137)
+	at auction.views.panels.SignIn$2.mouseClicked(SignIn.java:101)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6629)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3389)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6391)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:5001)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4833)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4584)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4833)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:722)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:716)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:97)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:746)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:744)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:743)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+2025-01-30 11:17:29 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 11:17:29 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 11:17:29 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 11:17:31 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 11:17:31 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 11:17:31 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 11:17:31 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 11:17:31 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:17:31 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 11:17:31 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 11:17:31 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:17:44 [Thread-0] INFO  auction.services.MulticastService - Message received: AUCTION-STARTED
+2025-01-30 11:17:44 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: AUCTION-STARTED
+2025-01-30 11:32:05 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 11:32:05 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 11:32:05 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 11:32:07 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 11:32:07 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 11:32:07 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 11:32:07 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 11:32:07 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:32:07 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 11:32:07 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 11:32:07 [Thread-0] ERROR auction.views.panels.WaitingRoom - Erro ao processar mensagem do leilão.
+com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'CLIENT_CONNECTED': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (String)"CLIENT_CONNECTED"; line: 1, column: 17]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2477)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:760)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._reportInvalidToken(ReaderBasedJsonParser.java:3041)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser._handleOddValue(ReaderBasedJsonParser.java:2082)
+	at com.fasterxml.jackson.core.json.ReaderBasedJsonParser.nextToken(ReaderBasedJsonParser.java:808)
+	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4912)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4818)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3772)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3740)
+	at auction.views.panels.WaitingRoom.processMessage(WaitingRoom.java:25)
+	at auction.services.MulticastService.lambda$startListening$0(MulticastService.java:183)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2025-01-30 11:32:07 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:32:46 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"999066ea-e709-41c9-bec7-38e2f46773db","data":{"title":"Xbox Series S","description":"","bidIncrement":80.0,"reservePrice":800.0,"auctionDuration":3600.000000000,"itemImage":"/views/products/imProduct02.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:32:46 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"999066ea-e709-41c9-bec7-38e2f46773db","data":{"title":"Xbox Series S","description":"","bidIncrement":80.0,"reservePrice":800.0,"auctionDuration":3600.000000000,"itemImage":"/views/products/imProduct02.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:32:46 [Thread-0] ERROR auction.services.MulticastService - Erro ao escutar mensagens multicast.
+java.lang.ClassCastException: class java.util.LinkedHashMap cannot be cast to class auction.models.Item (java.util.LinkedHashMap is in module java.base of loader 'bootstrap'; auction.models.Item is in unnamed module of loader 'app')
+	at auction.views.panels.WaitingRoom.processMessage(WaitingRoom.java:29)
+	at auction.services.MulticastService.lambda$startListening$0(MulticastService.java:183)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2025-01-30 11:36:30 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 11:36:30 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 11:36:30 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 11:36:32 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 11:36:32 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 11:36:32 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 11:36:32 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 11:36:32 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:36:32 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 11:36:32 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 11:36:32 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 11:36:32 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:36:41 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"5fc19612-6b4c-4ee9-a1e4-6ca40d8711b2","data":{"title":"Xbox Series S","description":"","bidIncrement":80.0,"reservePrice":800.0,"auctionDuration":3600.000000000,"itemImage":"/views/products/imProduct02.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:36:41 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"5fc19612-6b4c-4ee9-a1e4-6ca40d8711b2","data":{"title":"Xbox Series S","description":"","bidIncrement":80.0,"reservePrice":800.0,"auctionDuration":3600.000000000,"itemImage":"/views/products/imProduct02.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:36:41 [Thread-0] ERROR auction.services.MulticastService - Erro ao escutar mensagens multicast.
+java.lang.NullPointerException: Cannot invoke "javax.swing.ImageIcon.getImage()" because "icon" is null
+	at auction.utils.ImageUtil.resizeIcon(ImageUtil.java:9)
+	at auction.views.panels.Auction.loadAuctionContent(Auction.java:75)
+	at auction.views.panels.Auction.<init>(Auction.java:32)
+	at auction.views.panels.WaitingRoom.processMessage(WaitingRoom.java:41)
+	at auction.services.MulticastService.lambda$startListening$0(MulticastService.java:183)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2025-01-30 11:50:41 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 11:50:41 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 11:50:41 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 11:50:43 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 11:50:44 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 11:50:44 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 11:50:44 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 11:50:44 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:50:44 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 11:50:44 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 11:50:44 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 11:50:44 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:50:54 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"4437a312-6d08-4d6e-89d0-e5fe1dad1043","data":{"title":"iPhone 15","description":"","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:50:54 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"4437a312-6d08-4d6e-89d0-e5fe1dad1043","data":{"title":"iPhone 15","description":"","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:50:54 [Thread-0] ERROR auction.services.MulticastService - Erro ao escutar mensagens multicast.
+java.lang.NullPointerException: Cannot invoke "javax.swing.ImageIcon.getImage()" because "icon" is null
+	at auction.utils.ImageUtil.resizeIcon(ImageUtil.java:9)
+	at auction.views.panels.Auction.loadAuctionContent(Auction.java:75)
+	at auction.views.panels.Auction.<init>(Auction.java:32)
+	at auction.views.panels.WaitingRoom.processMessage(WaitingRoom.java:41)
+	at auction.services.MulticastService.lambda$startListening$0(MulticastService.java:183)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2025-01-30 11:52:59 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 11:52:59 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 11:52:59 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 11:53:01 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 11:53:01 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 11:53:01 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 11:53:01 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 11:53:01 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:53:01 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 11:53:01 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 11:53:01 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 11:53:01 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:53:13 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"c015692d-a858-4a3c-bfd7-636d9527183d","data":{"title":"Rolex","description":"","bidIncrement":130.0,"reservePrice":1300.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct05.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:53:13 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"c015692d-a858-4a3c-bfd7-636d9527183d","data":{"title":"Rolex","description":"","bidIncrement":130.0,"reservePrice":1300.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct05.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:53:14 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:58:43 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 11:58:44 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 11:58:44 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 11:58:45 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 11:58:46 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 11:58:46 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 11:58:46 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 11:58:46 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:58:46 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 11:58:46 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 11:58:46 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 11:58:46 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 11:58:53 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"5f177465-99ee-4c80-b010-8952a4a1bd69","data":{"title":"iPhone 15","description":"Smartphone Apple com design moderno e câmera aprimorada","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:58:53 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"5f177465-99ee-4c80-b010-8952a4a1bd69","data":{"title":"iPhone 15","description":"Smartphone Apple com design moderno e câmera aprimorada","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 11:58:54 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:05:42 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 12:05:42 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 12:05:42 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 12:05:44 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 12:05:44 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 12:05:44 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 12:05:44 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 12:05:44 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:05:44 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 12:05:44 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 12:05:44 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 12:05:44 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:05:48 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"62692c2c-2b26-4779-abef-461c7b3507a9","data":{"title":"Apple Watch Series 10","description":"Relógio inteligente da Apple com monitoramento de saúde avançado","bidIncrement":120.0,"reservePrice":1200.0,"auctionDuration":7200.000000000,"itemImage":"/views/products/imProduct03.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:05:48 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"62692c2c-2b26-4779-abef-461c7b3507a9","data":{"title":"Apple Watch Series 10","description":"Relógio inteligente da Apple com monitoramento de saúde avançado","bidIncrement":120.0,"reservePrice":1200.0,"auctionDuration":7200.000000000,"itemImage":"/views/products/imProduct03.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:05:49 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:13:07 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 12:13:07 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 12:13:08 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 12:13:09 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 12:13:09 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 12:13:09 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 12:13:09 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 12:13:09 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:13:09 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 12:13:09 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 12:13:09 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 12:13:09 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:13:13 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"15ad1b8c-0d3e-4340-8166-ad30fe86d03e","data":{"title":"Xbox Series S","description":"Console de videogame Xbox Series S com armazenamento de 512GB","bidIncrement":80.0,"reservePrice":800.0,"auctionDuration":3600.000000000,"itemImage":"/views/products/imProduct02.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:13:13 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"15ad1b8c-0d3e-4340-8166-ad30fe86d03e","data":{"title":"Xbox Series S","description":"Console de videogame Xbox Series S com armazenamento de 512GB","bidIncrement":80.0,"reservePrice":800.0,"auctionDuration":3600.000000000,"itemImage":"/views/products/imProduct02.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:13:13 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:21:00 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 12:21:00 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 12:21:00 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 12:21:02 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 12:21:02 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 12:21:02 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 12:21:02 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 12:21:02 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:21:02 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 12:21:02 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 12:21:02 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 12:21:02 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:21:07 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"a05029ae-e5eb-45c3-ab74-cd3fcd6ab7c0","data":{"title":"Tênis Nike Air Max","description":"Tênis esportivo de alta performance da Nike","bidIncrement":60.0,"reservePrice":600.0,"auctionDuration":300.000000000,"itemImage":"/views/products/imProduct01.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:21:07 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"a05029ae-e5eb-45c3-ab74-cd3fcd6ab7c0","data":{"title":"Tênis Nike Air Max","description":"Tênis esportivo de alta performance da Nike","bidIncrement":60.0,"reservePrice":600.0,"auctionDuration":300.000000000,"itemImage":"/views/products/imProduct01.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:21:08 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:30:10 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 12:30:10 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 12:30:11 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 12:30:12 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 12:30:13 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 12:30:13 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 12:30:13 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 12:30:13 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:30:13 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 12:30:13 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 12:30:13 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 12:30:13 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:30:26 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"74178268-1626-4af3-a907-d76039f1c1e3","data":{"title":"iPhone 15","description":"Smartphone Apple com design moderno e câmera aprimorada","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:30:26 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"74178268-1626-4af3-a907-d76039f1c1e3","data":{"title":"iPhone 15","description":"Smartphone Apple com design moderno e câmera aprimorada","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:30:27 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:44:13 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 12:44:14 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 12:44:14 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 12:44:15 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 12:44:16 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 12:44:16 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 12:44:16 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 12:44:16 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:44:16 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 12:44:16 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 12:44:16 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 12:44:16 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:44:22 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"d73ec161-7f41-4f9b-813b-f241b1ed559d","data":{"title":"Apple Watch Series 10","description":"Relógio inteligente da Apple com monitoramento de saúde avançado","bidIncrement":120.0,"reservePrice":1200.0,"auctionDuration":7200.000000000,"itemImage":"/views/products/imProduct03.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:22 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"d73ec161-7f41-4f9b-813b-f241b1ed559d","data":{"title":"Apple Watch Series 10","description":"Relógio inteligente da Apple com monitoramento de saúde avançado","bidIncrement":120.0,"reservePrice":1200.0,"auctionDuration":7200.000000000,"itemImage":"/views/products/imProduct03.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:23 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:44:35 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"ca919be4-f9fc-458e-b3a7-5e419ffabc4f","data":{"title":"Tênis Nike Air Max","description":"Tênis esportivo de alta performance da Nike","bidIncrement":60.0,"reservePrice":600.0,"auctionDuration":300.000000000,"itemImage":"/views/products/imProduct01.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:35 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"ca919be4-f9fc-458e-b3a7-5e419ffabc4f","data":{"title":"Tênis Nike Air Max","description":"Tênis esportivo de alta performance da Nike","bidIncrement":60.0,"reservePrice":600.0,"auctionDuration":300.000000000,"itemImage":"/views/products/imProduct01.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:36 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:44:39 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"d73ec161-7f41-4f9b-813b-f241b1ed559d","data":{"title":"Apple Watch Series 10","description":"Relógio inteligente da Apple com monitoramento de saúde avançado","bidIncrement":120.0,"reservePrice":1200.0,"auctionDuration":7200.000000000,"itemImage":"/views/products/imProduct03.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:39 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"d73ec161-7f41-4f9b-813b-f241b1ed559d","data":{"title":"Apple Watch Series 10","description":"Relógio inteligente da Apple com monitoramento de saúde avançado","bidIncrement":120.0,"reservePrice":1200.0,"auctionDuration":7200.000000000,"itemImage":"/views/products/imProduct03.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:39 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:44:42 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"ecb0a87b-a5da-42f3-a776-69031ea5309b","data":{"title":"iPhone 15","description":"Smartphone Apple com design moderno e câmera aprimorada","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:42 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"ecb0a87b-a5da-42f3-a776-69031ea5309b","data":{"title":"iPhone 15","description":"Smartphone Apple com design moderno e câmera aprimorada","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:42 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:44:47 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"0fe4b24a-45fc-42f2-89a7-c9314da602f1","data":{"title":"Rolex","description":"Relógio de luxo da marca Rolex","bidIncrement":130.0,"reservePrice":1300.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct05.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:47 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"0fe4b24a-45fc-42f2-89a7-c9314da602f1","data":{"title":"Rolex","description":"Relógio de luxo da marca Rolex","bidIncrement":130.0,"reservePrice":1300.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct05.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:48 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:44:52 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"ca919be4-f9fc-458e-b3a7-5e419ffabc4f","data":{"title":"Tênis Nike Air Max","description":"Tênis esportivo de alta performance da Nike","bidIncrement":60.0,"reservePrice":600.0,"auctionDuration":300.000000000,"itemImage":"/views/products/imProduct01.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:52 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"ca919be4-f9fc-458e-b3a7-5e419ffabc4f","data":{"title":"Tênis Nike Air Max","description":"Tênis esportivo de alta performance da Nike","bidIncrement":60.0,"reservePrice":600.0,"auctionDuration":300.000000000,"itemImage":"/views/products/imProduct01.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:44:52 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:50:43 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Sending request to server: {"action":"SIGN-IN","name":"Admin","password":"Admin@123","id":"fde5439d-d57e-40f2-8f32-dc85682b05f2"}
+2025-01-30 12:50:43 [AWT-EventQueue-0] INFO  auction.proxies.UserServiceProxy - Received response from server: {"status":"SUCCESS","message":"Optional[fde5439d-d57e-40f2-8f32-dc85682b05f2]","data":{"MULTICAST_ADDRESS":"230.0.0.1"}}
+2025-01-30 12:50:43 [AWT-EventQueue-0] INFO  auction.views.panels.SignIn - Logged in user
+2025-01-30 12:50:45 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Trying to connect to multicast group at 230.0.0.1:5000
+2025-01-30 12:50:45 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Network interface found: Intel(R) Dual Band Wireless-AC 3168
+2025-01-30 12:50:46 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Connection to multicast group 230.0.0.1:5000 succeeded.
+2025-01-30 12:50:46 [AWT-EventQueue-0] INFO  auction.services.MulticastService - Sending message: CLIENT_CONNECTED
+2025-01-30 12:50:46 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:50:46 [Thread-0] INFO  auction.services.MulticastService - Message received: CLIENT_CONNECTED
+2025-01-30 12:50:46 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: CLIENT_CONNECTED
+2025-01-30 12:50:46 [Thread-0] INFO  auction.views.panels.WaitingRoom - Mensagem ignorada: CLIENT_CONNECTED
+2025-01-30 12:50:46 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:50:51 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"9f52baa0-dbaf-42c1-951b-61724ac612cd","data":{"title":"Apple Watch Series 10","description":"Relógio inteligente da Apple com monitoramento de saúde avançado","bidIncrement":120.0,"reservePrice":1200.0,"auctionDuration":7200.000000000,"itemImage":"/views/products/imProduct03.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:50:51 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"9f52baa0-dbaf-42c1-951b-61724ac612cd","data":{"title":"Apple Watch Series 10","description":"Relógio inteligente da Apple com monitoramento de saúde avançado","bidIncrement":120.0,"reservePrice":1200.0,"auctionDuration":7200.000000000,"itemImage":"/views/products/imProduct03.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:50:53 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:50:59 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"29c6010c-02af-47c1-9730-f259767af01b","data":{"title":"iPhone 15","description":"Smartphone Apple com design moderno e câmera aprimorada","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:50:59 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"29c6010c-02af-47c1-9730-f259767af01b","data":{"title":"iPhone 15","description":"Smartphone Apple com design moderno e câmera aprimorada","bidIncrement":90.0,"reservePrice":900.0,"auctionDuration":1800.000000000,"itemImage":"/views/products/imProduct04.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:51:00 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...
+2025-01-30 12:51:06 [Thread-0] INFO  auction.services.MulticastService - Message received: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"ffeb04df-f3d8-4432-b45d-be5a2da9a4f3","data":{"title":"Xbox Series S","description":"Console de videogame Xbox Series S com armazenamento de 512GB","bidIncrement":80.0,"reservePrice":800.0,"auctionDuration":3600.000000000,"itemImage":"/views/products/imProduct02.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:51:06 [Thread-0] INFO  auction.services.MulticastService - Mensagem recebida: {"status":"AUCTION-STARTED","message":"The auction has started!","data":{"item":{"id":"ffeb04df-f3d8-4432-b45d-be5a2da9a4f3","data":{"title":"Xbox Series S","description":"Console de videogame Xbox Series S com armazenamento de 512GB","bidIncrement":80.0,"reservePrice":800.0,"auctionDuration":3600.000000000,"itemImage":"/views/products/imProduct02.png"},"currentBid":0.0,"openingBid":0.0,"status":"CREATED","auctionStart":null,"auctionEnd":null,"winningBidder":null}}}
+2025-01-30 12:51:08 [Thread-0] INFO  auction.services.MulticastService - Waiting for multicast message...

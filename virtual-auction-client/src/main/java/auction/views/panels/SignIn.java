@@ -134,8 +134,8 @@ public class SignIn extends javax.swing.JPanel {
             System.out.println("Cliente enviou mensagem de registro ao servidor.");
 
             ClientAuctionApp.frame.clearForm(tfName, jpfPassword);
-            Frame.auction = new Auction();
-            ClientAuctionApp.frame.initNewPanel(Frame.auction);
+            Frame.waitingRoom = new WaitingRoom();
+            ClientAuctionApp.frame.initNewPanel(Frame.waitingRoom);
         }
     }//GEN-LAST:event_lbSignInMouseClicked
 

@@ -4,6 +4,7 @@ import auction.controllers.AppController;
 import auction.views.panels.Auction;
 import auction.views.panels.SignIn;
 import auction.views.panels.SignUp;
+import auction.views.panels.WaitingRoom;
 import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ public class Frame extends javax.swing.JFrame {
     public static SignIn signIn;
     public static SignUp signUp;
     public static Auction auction;
+    public static WaitingRoom waitingRoom;
     
     public Frame(AppController appController) {
         initComponents();

@@ -12,11 +12,12 @@ import java.net.MulticastSocket;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MulticastService {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(MulticastService.class);
 
     private final String MULTICAST_ADDRESS;
@@ -32,7 +33,7 @@ public class MulticastService {
         this.PORT = Integer.parseInt(ConfigManager.get("MULTICAST_PORT"));
         this.mapper = JsonUtil.getObjectMapper();
     }
-    
+
     /**
      * Conecta-se ao grupo multicast.
      */
@@ -135,7 +136,7 @@ public class MulticastService {
      * Envia dados brutos (byte array) para o grupo multicast.
      */
     private void sendData(byte[] data) {
-        try (DatagramSocket sendSocket = new DatagramSocket()) {
+        try ( DatagramSocket sendSocket = new DatagramSocket()) {
             DatagramPacket packet = new DatagramPacket(data, data.length, group, PORT);
             sendSocket.send(packet);
         } catch (IOException e) {
@@ -171,5 +172,21 @@ public class MulticastService {
         }
         return null;
     }
-    
+
+    public void startListening(Consumer<String> onMessageReceived) {
+        new Thread(() -> {
+            try {
+                while (true) {
+                    String message = receiveString();
+                    if (message != null) {
+                        LOGGER.info("Mensagem recebida: {}", message);
+                        onMessageReceived.accept(message);
+                    }
+                }
+            } catch (Exception e) {
+                LOGGER.error("Erro ao escutar mensagens multicast.", e);
+            }
+        }).start();
+    }
+
 }
