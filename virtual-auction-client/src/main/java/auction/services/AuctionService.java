@@ -8,7 +8,10 @@ import auction.views.frames.Frame;
 import auction.views.panels.Auction;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.Duration;
 import java.util.Map;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,9 +48,33 @@ public class AuctionService {
         }
     }
     
-    public void updateTime(String message) {
-        // Simula a atualização do tempo
-        System.out.println("\tAtualizando tempo...");
+    public void updateTime(String message, JLabel label) {
+        try {
+            // Simula a atualização do tempo
+            System.out.println("\tAtualizando tempo...");
+            
+            Response response = mapper.readValue(message, Response.class);
+            response.getData().ifPresent(data -> {
+                Object timeObj = data.get("timeLeft");
+                if (timeObj instanceof Number) {
+                    long timeLeftSeconds = ((Number) timeObj).longValue(); // Obtém o tempo em segundos
+                    
+                    // Converte para Duration
+                    Duration duration = Duration.ofSeconds(timeLeftSeconds);
+                    
+                    // Formata para o padrão hh:mm:ss
+                    String formattedDuration = String.format("%02dhrs : %02dmins : %02dsecs",
+                            duration.toHours(),
+                            duration.toMinutesPart(),
+                            duration.toSecondsPart()
+                    );
+                    
+                    SwingUtilities.invokeLater(() -> label.setText(formattedDuration));
+                }
+            }); 
+        } catch (JsonProcessingException ex) {
+            logger.error("Error desserializing json", ex);
+        }
     }
     
 }

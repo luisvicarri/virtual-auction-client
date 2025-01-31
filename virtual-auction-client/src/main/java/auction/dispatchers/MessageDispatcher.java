@@ -54,11 +54,24 @@ public class MessageDispatcher {
         // Aqui você pode usar uma biblioteca JSON (como Jackson ou Gson) para extrair o campo "status"
         try {
             JsonNode jsonNode = JsonUtil.getObjectMapper().readTree(message);
-            return jsonNode.get("status").asText();
+
+            // Verifica se "status" existe, senão tenta "type"
+            JsonNode statusNode = jsonNode.get("status");
+            if (statusNode != null) {
+                return statusNode.asText();
+            }
+
+            JsonNode typeNode = jsonNode.get("type");
+            if (typeNode != null) {
+                return typeNode.asText();
+            }
+
+            // Se nenhuma chave for encontrada, loga a mensagem problemática
+            System.err.println("Mensagem sem campo 'status' ou 'type': " + message);
+            return ""; // Retorna string vazia para evitar NullPointerException
         } catch (JsonProcessingException e) {
-            System.err.println("Erro ao extrair tipo da mensagem: " + message);
+            System.err.println("Erro ao processar JSON: " + message);
             return "";
         }
     }
-
 }

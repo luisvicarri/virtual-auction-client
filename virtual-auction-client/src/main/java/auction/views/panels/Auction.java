@@ -2,9 +2,12 @@ package auction.views.panels;
 
 import auction.controllers.SessionController;
 import auction.controllers.UserController;
+import auction.dispatchers.MessageDispatcher;
+import auction.handlers.TimeUpdate;
 import auction.main.ClientAuctionApp;
 import auction.models.Item;
 import auction.models.User;
+import auction.services.AuctionService;
 import auction.utils.FontUtil;
 import auction.utils.ImageUtil;
 import auction.views.components.ScrollBarCustom;
@@ -33,6 +36,10 @@ public class Auction extends javax.swing.JPanel {
         fontUtil = new FontUtil();
         customizeComponents();
         loadAuctionContent(currentItem);
+        
+        MessageDispatcher dispatcher = ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher();
+        dispatcher.registerHandler("TIME-UPDATE", new TimeUpdate(new AuctionService(), lbTimer));
+        ClientAuctionApp.frame.getAppController().getMulticastController().startListening(dispatcher::addMessage);
 
         pnMessageDisplay.setLayout(null);
         spMessageDisplay.setVerticalScrollBar(new ScrollBarCustom());

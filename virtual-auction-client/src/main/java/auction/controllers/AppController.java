@@ -14,19 +14,12 @@ public final class AppController {
     private final ItemController itemController;
     private final SessionController sessionController;
     private final MulticastController multicastController;
-    private final AuctionController auctionController;
 
     public AppController() {
         this.userController = configUserController();
         this.itemController = configItemController();
         this.multicastController = configMulticastController();
         this.sessionController = SessionController.getInstance();
-        this.auctionController = configAuctionController();
-    }
-    
-    private AuctionController configAuctionController() {
-        AuctionService service = new AuctionService();
-        return new AuctionController(service);
     }
     
     private MulticastController configMulticastController() {
@@ -63,8 +56,4 @@ public final class AppController {
         return multicastController;
     }
 
-    public AuctionController getAuctionController() {
-        return auctionController;
-    }
-    
 }
