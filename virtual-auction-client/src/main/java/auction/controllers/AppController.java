@@ -3,6 +3,7 @@ package auction.controllers;
 import auction.proxies.UserServiceProxy;
 import auction.repositories.ItemRepository;
 import auction.repositories.UserRepository;
+import auction.services.AuctionService;
 import auction.services.ItemService;
 import auction.services.MulticastService;
 import auction.services.UserService;
@@ -54,5 +55,5 @@ public final class AppController {
     public MulticastController getMulticastController() {
         return multicastController;
     }
-    
+
 }

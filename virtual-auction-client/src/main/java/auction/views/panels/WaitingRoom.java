@@ -1,8 +1,11 @@
 package auction.views.panels;
 
+import auction.dispatchers.MessageDispatcher;
+import auction.handlers.AuctionStarted;
 import auction.main.ClientAuctionApp;
 import auction.models.Item;
 import auction.models.dtos.Response;
+import auction.services.AuctionService;
 import auction.utils.JsonUtil;
 import auction.views.frames.Frame;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,7 +21,10 @@ public class WaitingRoom extends javax.swing.JPanel {
 
     public WaitingRoom() {
         initComponents();
-        ClientAuctionApp.frame.getAppController().getMulticastController().startListening(this::processMessage);
+//        ClientAuctionApp.frame.getAppController().getMulticastController().startListening(this::processMessage);
+        MessageDispatcher dispatcher = ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher();
+        dispatcher.registerHandler("AUCTION-STARTED", new AuctionStarted(new AuctionService()));
+        ClientAuctionApp.frame.getAppController().getMulticastController().startListening(dispatcher::addMessage);
     }
 
     private void processMessage(String message) {
