@@ -1,5 +1,7 @@
 package auction.services;
 
+import auction.dispatchers.MessageDispatcher;
+import auction.main.ClientAuctionApp;
 import auction.utils.ConfigManager;
 import auction.utils.JsonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +29,7 @@ public class MulticastService {
     private MulticastSocket socket;
     private InetAddress group;
     private NetworkInterface networkInterface;
-
+    
     public MulticastService() {
         this.MULTICAST_ADDRESS = ConfigManager.get("MULTICAST_ADDRESS");
         this.PORT = Integer.parseInt(ConfigManager.get("MULTICAST_PORT"));
@@ -179,12 +181,12 @@ public class MulticastService {
                 while (true) {
                     String message = receiveString();
                     if (message != null) {
-                        LOGGER.info("Mensagem recebida: {}", message);
-                        onMessageReceived.accept(message);
+                        System.out.println("Mensagem recebida: " + message);
+                        ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher().addMessage(message); // Encaminha para o dispatcher
                     }
                 }
             } catch (Exception e) {
-                LOGGER.error("Erro ao escutar mensagens multicast.", e);
+                System.err.println("Erro ao escutar mensagens multicast: " + e.getMessage());
             }
         }).start();
     }
