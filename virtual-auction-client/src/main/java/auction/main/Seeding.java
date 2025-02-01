@@ -1,6 +1,7 @@
 package auction.main;
 
 import auction.controllers.AppController;
+import auction.dispatchers.MessageDispatcher;
 
 public class Seeding {
 
@@ -11,8 +12,7 @@ public class Seeding {
     }
     
     public void start() {
-
-
+        MessageDispatcher dispatcher = appController.getMulticastController().getDispatcher();
     }
 
 }

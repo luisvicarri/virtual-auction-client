@@ -1,6 +1,5 @@
 package auction.services;
 
-import auction.dispatchers.MessageDispatcher;
 import auction.main.ClientAuctionApp;
 import auction.utils.ConfigManager;
 import auction.utils.JsonUtil;
@@ -150,7 +149,7 @@ public class MulticastService {
      * Recebe dados brutos (byte array) do grupo multicast.
      */
     private String receiveData() throws IOException {
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[4096];
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
         socket.receive(packet);
         return new String(packet.getData(), 0, packet.getLength());
@@ -181,7 +180,6 @@ public class MulticastService {
                 while (true) {
                     String message = receiveString();
                     if (message != null) {
-                        System.out.println("Mensagem recebida: " + message);
                         ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher().addMessage(message); // Encaminha para o dispatcher
                     }
                 }

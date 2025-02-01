@@ -3,8 +3,12 @@ package auction.views.panels;
 import auction.controllers.SessionController;
 import auction.main.ClientAuctionApp;
 import auction.utils.FontUtil;
+import auction.utils.JsonUtil;
 import auction.utils.ValidatorUtil;
 import auction.views.frames.Frame;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -130,8 +134,17 @@ public class SignIn extends javax.swing.JPanel {
             }
 
             ClientAuctionApp.frame.getAppController().getMulticastController().connect();
-            ClientAuctionApp.frame.getAppController().getMulticastController().send("CLIENT_CONNECTED");
-            System.out.println("Cliente enviou mensagem de registro ao servidor.");
+//            ClientAuctionApp.frame.getAppController().getMulticastController().send("CLIENT_CONNECTED");
+            ObjectMapper mapper = JsonUtil.getObjectMapper();
+            Map<String, String> message = new HashMap<>();
+            message.put("status", "CLIENT_CONNECTED");
+
+            try {
+                String jsonMessage = mapper.writeValueAsString(message);
+                ClientAuctionApp.frame.getAppController().getMulticastController().send(jsonMessage);
+            } catch (JsonProcessingException ex) {
+                logger.error("Error serializing CLIENT_CONNECTED message.", ex);
+            }
 
             ClientAuctionApp.frame.clearForm(tfName, jpfPassword);
             Frame.waitingRoom = new WaitingRoom();

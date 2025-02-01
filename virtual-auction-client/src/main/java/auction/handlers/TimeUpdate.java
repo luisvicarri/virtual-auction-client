@@ -19,7 +19,7 @@ public class TimeUpdate implements MessageHandler {
 
     @Override
     public void handle(String message) {
-        logger.info("Processing auction start message: {}", message);
+        logger.info("Processing time update message: {}", message);
         service.updateTime(message, label);
     }
 

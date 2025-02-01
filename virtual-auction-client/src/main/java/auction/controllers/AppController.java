@@ -1,9 +1,13 @@
 package auction.controllers;
 
+import auction.dispatchers.MessageDispatcher;
+import auction.handlers.AuctionStarted;
+import auction.handlers.PlaceBid;
 import auction.proxies.UserServiceProxy;
 import auction.repositories.BiddingRepository;
 import auction.repositories.ItemRepository;
 import auction.repositories.UserRepository;
+import auction.services.AuctionService;
 import auction.services.BiddingService;
 import auction.services.ItemService;
 import auction.services.MulticastService;
@@ -23,6 +27,14 @@ public final class AppController {
         this.multicastController = configMulticastController();
         this.sessionController = SessionController.getInstance();
         this.biddingController = configBiddingController();
+        
+        addHandlers();
+    }
+    
+    private void addHandlers() {
+        MessageDispatcher dispatcher = getMulticastController().getDispatcher();
+        dispatcher.registerHandler("NEW-BID", new PlaceBid(new AuctionService()));
+        dispatcher.registerHandler("AUCTION-STARTED", new AuctionStarted(new AuctionService()));
     }
     
     private BiddingController configBiddingController() {

@@ -8,9 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MessageDispatcher {
 
+    private static final Logger logger = LoggerFactory.getLogger(MessageDispatcher.class);
     private final BlockingQueue<String> messageQueue = new LinkedBlockingQueue<>();
     private final Map<String, MessageHandler> handlers = new HashMap<>();
 
@@ -21,9 +24,9 @@ public class MessageDispatcher {
                 try {
                     String message = messageQueue.take(); // Bloqueia até receber uma mensagem
                     dispatch(message);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
-                    System.err.println("Dispatcher interrompido.");
+                    logger.error("Dispatcher stopped", ex);
                     break;
                 }
             }
@@ -40,13 +43,15 @@ public class MessageDispatcher {
 
     private void dispatch(String message) {
         // Aqui, você pode parsear o JSON e extrair o tipo da mensagem
-        String messageType = extractMessageType(message); // Suponha que essa função obtenha "AUCTION-STARTED" ou "TIME-UPDATE"
+        logger.info("Dispatching message: {}", message); // <-- Log para ver a mensagem bruta
+        String messageType = extractMessageType(message);
+        logger.info("Extracted message type: {}", messageType); // <-- Log para ver o tipo extraído
 
         MessageHandler handler = handlers.get(messageType);
         if (handler != null) {
             handler.handle(message);
         } else {
-            System.err.println("Nenhum handler encontrado para o tipo de mensagem: " + messageType);
+            logger.warn("No handler found for message type: {}", messageType);
         }
     }
 
@@ -67,10 +72,10 @@ public class MessageDispatcher {
             }
 
             // Se nenhuma chave for encontrada, loga a mensagem problemática
-            System.err.println("Mensagem sem campo 'status' ou 'type': " + message);
+            logger.error("Message without 'status' or 'type' field: {}", message);
             return ""; // Retorna string vazia para evitar NullPointerException
         } catch (JsonProcessingException e) {
-            System.err.println("Erro ao processar JSON: " + message);
+            logger.error("Error processing JSON: {}", message);
             return "";
         }
     }

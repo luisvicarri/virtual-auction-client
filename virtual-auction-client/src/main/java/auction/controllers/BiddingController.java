@@ -1,6 +1,7 @@
 package auction.controllers;
 
 import auction.models.Bid;
+import auction.models.Item;
 import auction.services.BiddingService;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,10 @@ public class BiddingController {
     
     public List<Bid> getBids() {
         return service.getBids();
+    }
+    
+    public void placeBid(Item currentItem) {
+        service.placeBid(currentItem);
     }
     
 }

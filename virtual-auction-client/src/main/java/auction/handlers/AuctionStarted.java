@@ -16,6 +16,7 @@ public class AuctionStarted implements MessageHandler {
     
     @Override
     public void handle(String message) {
+        System.out.println("");
         logger.info("Processing auction start message: {}", message);
         service.startAuction(message);
     }

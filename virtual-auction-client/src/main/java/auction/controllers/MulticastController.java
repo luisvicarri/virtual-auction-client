@@ -42,10 +42,6 @@ public class MulticastController {
         return service.receiveObject(type);
     }
     
-//    public void startListening(Consumer<String> onMessageReceived) {
-//        service.startListening(onMessageReceived);
-//    }
-    
     public void startListening(Consumer<String> onMessageReceived) {
         service.startListening(onMessageReceived);
     }

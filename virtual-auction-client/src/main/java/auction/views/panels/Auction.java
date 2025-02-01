@@ -3,6 +3,7 @@ package auction.views.panels;
 import auction.controllers.SessionController;
 import auction.controllers.UserController;
 import auction.dispatchers.MessageDispatcher;
+import auction.handlers.PlaceBid;
 import auction.handlers.TimeUpdate;
 import auction.main.ClientAuctionApp;
 import auction.models.Bid;
@@ -34,16 +35,20 @@ public class Auction extends javax.swing.JPanel {
 
     private final ImageUtil imageUtil;
     private final FontUtil fontUtil;
+    private final Item currentItem;
 
     public Auction(Item currentItem) {
         initComponents();
         imageUtil = new ImageUtil();
         fontUtil = new FontUtil();
+        this.currentItem = currentItem;
         customizeComponents();
         loadAuctionContent(currentItem);
 
         MessageDispatcher dispatcher = ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher();
         dispatcher.registerHandler("TIME-UPDATE", new TimeUpdate(new AuctionService(), lbTimer));
+        dispatcher.registerHandler("BID-UPDATED", new PlaceBid(new AuctionService()));
+        
         ClientAuctionApp.frame.getAppController().getMulticastController().startListening(dispatcher::addMessage);
 
         pnMessageDisplay.setLayout(null);
@@ -231,7 +236,13 @@ public class Auction extends javax.swing.JPanel {
         lbBidNow.setForeground(new java.awt.Color(255, 255, 255));
         lbBidNow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbBidNow.setText("BID NOW");
+        lbBidNow.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbBidNow.setOpaque(true);
+        lbBidNow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbBidNowMouseClicked(evt);
+            }
+        });
         add(lbBidNow, new org.netbeans.lib.awtextra.AbsoluteConstraints(658, 413, 170, 47));
         add(lbWinningBidder, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 502, 378, 38));
 
@@ -269,6 +280,11 @@ public class Auction extends javax.swing.JPanel {
         lbBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/backgrounds/bgAuction.png"))); // NOI18N
         add(lbBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 600));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lbBidNowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBidNowMouseClicked
+        ClientAuctionApp.frame.getAppController().getBiddingController().placeBid(currentItem);
+        
+    }//GEN-LAST:event_lbBidNowMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbAuction;
