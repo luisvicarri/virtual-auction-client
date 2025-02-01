@@ -1,9 +1,10 @@
 package auction.controllers;
 
 import auction.proxies.UserServiceProxy;
+import auction.repositories.BiddingRepository;
 import auction.repositories.ItemRepository;
 import auction.repositories.UserRepository;
-import auction.services.AuctionService;
+import auction.services.BiddingService;
 import auction.services.ItemService;
 import auction.services.MulticastService;
 import auction.services.UserService;
@@ -14,12 +15,20 @@ public final class AppController {
     private final ItemController itemController;
     private final SessionController sessionController;
     private final MulticastController multicastController;
+    private final BiddingController biddingController;
 
     public AppController() {
         this.userController = configUserController();
         this.itemController = configItemController();
         this.multicastController = configMulticastController();
         this.sessionController = SessionController.getInstance();
+        this.biddingController = configBiddingController();
+    }
+    
+    private BiddingController configBiddingController() {
+        BiddingRepository repository = new BiddingRepository();
+        BiddingService service = new BiddingService(repository);
+        return new BiddingController(service);
     }
     
     private MulticastController configMulticastController() {
@@ -56,4 +65,8 @@ public final class AppController {
         return multicastController;
     }
 
+    public BiddingController getBiddingController() {
+        return biddingController;
+    }
+    
 }

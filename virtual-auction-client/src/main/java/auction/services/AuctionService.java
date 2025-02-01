@@ -1,14 +1,17 @@
 package auction.services;
 
 import auction.main.ClientAuctionApp;
+import auction.models.Bid;
 import auction.models.Item;
 import auction.models.dtos.Response;
 import auction.utils.JsonUtil;
 import auction.views.frames.Frame;
 import auction.views.panels.Auction;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
@@ -35,9 +38,12 @@ public class AuctionService {
             if ("AUCTION-STARTED".equals(response.getStatus())) {
                 Map<String, Object> data = response.getData().orElseThrow();
                 Object itemObject = data.get("item");
-
                 // Converter manualmente o LinkedHashMap para Item
                 Item item = mapper.convertValue(itemObject, Item.class);
+
+                Object bidsObj = data.get("bids");
+                List<Bid> bids = mapper.readValue(((String) bidsObj), mapper.getTypeFactory().constructCollectionType(List.class, Bid.class));
+                ClientAuctionApp.frame.getAppController().getBiddingController().storeBids(bids);
 
                 // Criar o leilão e atualizar a interface gráfica
                 Frame.auction = new Auction(item);

@@ -5,6 +5,7 @@ import auction.controllers.UserController;
 import auction.dispatchers.MessageDispatcher;
 import auction.handlers.TimeUpdate;
 import auction.main.ClientAuctionApp;
+import auction.models.Bid;
 import auction.models.Item;
 import auction.models.User;
 import auction.services.AuctionService;
@@ -15,9 +16,13 @@ import auction.views.panels.templates.Message;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
@@ -36,15 +41,20 @@ public class Auction extends javax.swing.JPanel {
         fontUtil = new FontUtil();
         customizeComponents();
         loadAuctionContent(currentItem);
-        
+
         MessageDispatcher dispatcher = ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher();
         dispatcher.registerHandler("TIME-UPDATE", new TimeUpdate(new AuctionService(), lbTimer));
         ClientAuctionApp.frame.getAppController().getMulticastController().startListening(dispatcher::addMessage);
 
         pnMessageDisplay.setLayout(null);
         spMessageDisplay.setVerticalScrollBar(new ScrollBarCustom());
-        List<String> messages = loadContent();
-        addMessage(messages);
+
+        // Teste manual de inserção de lances
+        List<Bid> bids = new ArrayList<>();
+        bids.add(new Bid(UUID.randomUUID(), UUID.randomUUID(), 100.0)); // Lance 1
+        bids.add(new Bid(UUID.randomUUID(), UUID.randomUUID(), 150.0)); // Lance 2
+        bids.add(new Bid(UUID.randomUUID(), UUID.randomUUID(), 200.0)); // Lance 3
+        addMessage(bids);
 
         UserController controller = ClientAuctionApp.frame.getAppController().getUserController();
         User userLogged = controller.getUserLogged(SessionController.getInstance());
@@ -109,42 +119,32 @@ public class Auction extends javax.swing.JPanel {
         lbTimer.setIcon(resizedIcon);
     }
 
-    private List<String> loadContent() {
-        List<String> messages = new ArrayList<>();
-
-        messages.add("User0001 has the highest bid.");
-        messages.add("User0009 has the highest bid.");
-        messages.add("User0027 has the highest bid.");
-        messages.add("User0012 has the highest bid.");
-        messages.add("User0003 has the highest bid.");
-        messages.add("User0033 has the highest bid.");
-        messages.add("User0006 has the highest bid.");
-        messages.add("User0090 has the highest bid.");
-        messages.add("User0001 has the highest bid.");
-        messages.add("User0013 has the highest bid.");
-        messages.add("User0006 has the highest bid.");
-
-        return messages;
-    }
-
-    private void addMessage(List<String> messages) {
+    private void addMessage(List<Bid> bids) {
         int rowSpacing = 20; // Espaçamento entre linhas
         int templateWidth = 291; // Largura do template
         int templateHeight = 60; // Altura do template
 
         // Ajusta o tamanho do painel "pnMessageDisplay"
         int panelWidth = templateWidth; // Apenas uma coluna, então a largura é fixa
-        int panelHeight = messages.size() * (templateHeight + rowSpacing) - rowSpacing;
+        int panelHeight = bids.size() * (templateHeight + rowSpacing) - rowSpacing;
         pnMessageDisplay.setPreferredSize(new Dimension(panelWidth, panelHeight));
 
-        for (int i = 0; i < messages.size(); i++) {
-            String msg = messages.get(i);
+        for (int i = 0; i < bids.size(); i++) {
+            Bid bid = bids.get(i);
 
             // Cria uma nova instância do TemplatePanel
             Message message = new Message();
 
             // Preenche os dados no template
-            message.getLbMessage().setText(msg);
+            message.getLbMessage().setText(bid.getBidderId() + "has the highest bid.");
+
+            Instant timestamp = bid.getTimestamp();
+            // Formata o Instant para o formato desejado (xxhrs : xxmins : xxsecs)
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH 'hrs : ' mm 'mins : ' ss 'secs'")
+                    .withZone(ZoneId.systemDefault()); // Pode ajustar o fuso horário se necessário
+            // Converte o Instant para uma string formatada
+            String timeFormatted = formatter.format(timestamp);
+            message.getLbTimestamp().setText(timeFormatted);
 
             // Calcula a posição (apenas na vertical)
             int y = i * (templateHeight + rowSpacing);

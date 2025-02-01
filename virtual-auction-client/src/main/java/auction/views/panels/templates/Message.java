@@ -30,6 +30,10 @@ public class Message extends javax.swing.JPanel {
         return lbMessage;
     }
 
+    public JLabel getLbTimestamp() {
+        return lbTimestamp;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

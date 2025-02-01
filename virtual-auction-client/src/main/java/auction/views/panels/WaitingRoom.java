@@ -3,14 +3,9 @@ package auction.views.panels;
 import auction.dispatchers.MessageDispatcher;
 import auction.handlers.AuctionStarted;
 import auction.main.ClientAuctionApp;
-import auction.models.Item;
-import auction.models.dtos.Response;
 import auction.services.AuctionService;
 import auction.utils.JsonUtil;
-import auction.views.frames.Frame;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,35 +16,9 @@ public class WaitingRoom extends javax.swing.JPanel {
 
     public WaitingRoom() {
         initComponents();
-//        ClientAuctionApp.frame.getAppController().getMulticastController().startListening(this::processMessage);
         MessageDispatcher dispatcher = ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher();
         dispatcher.registerHandler("AUCTION-STARTED", new AuctionStarted(new AuctionService()));
         ClientAuctionApp.frame.getAppController().getMulticastController().startListening(dispatcher::addMessage);
-    }
-
-    private void processMessage(String message) {
-        try {
-            if (!message.trim().startsWith("{")) {
-                // Ignorar mensagens que não sejam JSON
-                logger.info("Mensagem ignorada: " + message);
-                return;
-            }
-
-            Response response = mapper.readValue(message, Response.class);
-
-            if ("AUCTION-STARTED".equals(response.getStatus())) {
-                Map<String, Object> data = response.getData().orElseThrow();
-                Object itemObject = data.get("item");
-
-                // Converter manualmente o LinkedHashMap para Item
-                Item item = mapper.convertValue(itemObject, Item.class);
-
-                Frame.auction = new Auction(item);
-                ClientAuctionApp.frame.initNewPanel(Frame.auction);
-            }
-        } catch (JsonProcessingException | IllegalArgumentException e) {
-            logger.error("Erro ao processar mensagem do leilão.", e);
-        }
     }
 
     @SuppressWarnings("unchecked")
