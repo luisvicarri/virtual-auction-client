@@ -2,6 +2,8 @@ package auction.controllers;
 
 import auction.models.User;
 import auction.services.UserService;
+import java.util.Optional;
+import java.util.UUID;
 
 public class UserController {
     
@@ -25,5 +27,9 @@ public class UserController {
     
     public String hashPassword(String password) {
         return service.hashPassword(password);
+    }
+    
+    public Optional<User> findById(UUID id) {
+        return service.findById(id);
     }
 }

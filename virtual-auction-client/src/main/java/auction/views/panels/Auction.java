@@ -49,16 +49,16 @@ public class Auction extends javax.swing.JPanel {
         pnMessageDisplay.setLayout(null);
         spMessageDisplay.setVerticalScrollBar(new ScrollBarCustom());
 
-        // Teste manual de inserção de lances
-        List<Bid> bids = new ArrayList<>();
-        bids.add(new Bid(UUID.randomUUID(), UUID.randomUUID(), 100.0)); // Lance 1
-        bids.add(new Bid(UUID.randomUUID(), UUID.randomUUID(), 150.0)); // Lance 2
-        bids.add(new Bid(UUID.randomUUID(), UUID.randomUUID(), 200.0)); // Lance 3
-        addMessage(bids);
-
         UserController controller = ClientAuctionApp.frame.getAppController().getUserController();
         User userLogged = controller.getUserLogged(SessionController.getInstance());
         lbUsername.setText(userLogged.getName());
+        
+        // Teste manual de inserção de lances
+        List<Bid> bids = new ArrayList<>();
+        bids.add(new Bid(UUID.randomUUID(), userLogged.getId(), 100.0)); // Lance 1
+        bids.add(new Bid(UUID.randomUUID(), userLogged.getId(), 150.0)); // Lance 2
+        bids.add(new Bid(UUID.randomUUID(), userLogged.getId(), 200.0)); // Lance 3
+        addMessage(bids);
     }
 
     private void customizeComponents() {
@@ -136,7 +136,7 @@ public class Auction extends javax.swing.JPanel {
             Message message = new Message();
 
             // Preenche os dados no template
-            message.getLbMessage().setText(bid.getBidderId() + "has the highest bid.");
+            message.getLbMessage().setText(bid.getBidderName() + " has the highest bid.");
 
             Instant timestamp = bid.getTimestamp();
             // Formata o Instant para o formato desejado (xxhrs : xxmins : xxsecs)

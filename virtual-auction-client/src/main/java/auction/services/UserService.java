@@ -6,6 +6,7 @@ import auction.proxies.UserServiceProxy;
 import auction.repositories.UserRepository;
 import auction.utils.PasswordUtil;
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,5 +60,9 @@ public class UserService {
     
     public String hashPassword(String password) {
         return PasswordUtil.hashPassword(password);
+    }
+    
+    public Optional<User> findById(UUID id) {
+        return repository.findById(id);
     }
 }
