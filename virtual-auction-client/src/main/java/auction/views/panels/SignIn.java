@@ -132,13 +132,13 @@ public class SignIn extends javax.swing.JPanel {
                 ClientAuctionApp.frame.getAppController().getMulticastController().connect();
                 ObjectMapper mapper = JsonUtil.getObjectMapper();
                 Map<String, String> message = new HashMap<>();
-                message.put("status", "CLIENT_CONNECTED");
+                message.put("status", "CLIENT-CONNECTED");
 
                 try {
                     String jsonMessage = mapper.writeValueAsString(message);
                     ClientAuctionApp.frame.getAppController().getMulticastController().send(jsonMessage);
                 } catch (JsonProcessingException ex) {
-                    logger.error("Error serializing CLIENT_CONNECTED message.", ex);
+                    logger.error("Error serializing CLIENT-CONNECTED message.", ex);
                 }
 
                 ClientAuctionApp.frame.clearForm(tfName, jpfPassword);

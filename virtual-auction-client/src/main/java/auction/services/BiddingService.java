@@ -8,6 +8,8 @@ import auction.models.Item;
 import auction.models.User;
 import auction.models.dtos.Response;
 import auction.repositories.BiddingRepository;
+import auction.utils.JsonUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ public class BiddingService {
 
     private static final Logger logger = LoggerFactory.getLogger(BiddingService.class);
     private final BiddingRepository repository;
+    private final ObjectMapper mapper = JsonUtil.getObjectMapper();
 
     public BiddingService(BiddingRepository repository) {
         this.repository = repository;

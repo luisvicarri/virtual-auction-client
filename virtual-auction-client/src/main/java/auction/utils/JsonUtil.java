@@ -4,11 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JsonUtil {
 
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(JsonUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(JsonUtil.class);
     
     public static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();

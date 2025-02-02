@@ -34,7 +34,7 @@ public final class AppController {
 
     private void addHandlers() {
         MessageDispatcher dispatcher = getMulticastController().getDispatcher();
-        dispatcher.registerHandler("NEW-BID", new PlaceBid(new AuctionService()));
+        dispatcher.registerHandler("BID-UPDATED", new PlaceBid(new AuctionService()));
         dispatcher.registerHandler("AUCTION-STARTED", new AuctionStarted(new AuctionService()));
         dispatcher.registerHandler("TIME-UPDATE", new TimeUpdate(new AuctionService()));
     }

@@ -39,7 +39,7 @@ public class AuctionService {
             if ("AUCTION-STARTED".equals(response.getStatus())) {
                 Map<String, Object> data = response.getData().orElseThrow();
                 Object itemObject = data.get("item");
-                
+
                 // Converter manualmente o LinkedHashMap para Item
                 Item item = mapper.convertValue(itemObject, Item.class);
                 ClientAuctionApp.frame.getAppController().getItemController().setCurrentItem(item);
@@ -84,7 +84,6 @@ public class AuctionService {
                             duration.toSecondsPart()
                     );
 
-//                    SwingUtilities.invokeLater(() -> label.setText(formattedDuration));
                     UIUpdateManager.getTimeUpdater().accept(formattedDuration);
                 }
             });
@@ -98,54 +97,50 @@ public class AuctionService {
             Response response = mapper.readValue(message, Response.class);
 
             response.getData().ifPresent(data -> {
-                Map<String, Object> bidData = (Map<String, Object>) data.get("bid");
-                if (bidData != null) {
-                    Object bidIdObj = bidData.get("id");
-                    Object itemIdObj = data.get("itemId");
-                    Object bidderIdObj = bidData.get("bidderId");
-                    Object bidderNameObj = bidData.get("bidderName");
-                    Object bidAmountObj = bidData.get("amount");
-                    Object timestampObj = bidData.get("timestamp");
 
-                    if (bidIdObj != null && itemIdObj != null && bidderIdObj != null && bidderNameObj != null && bidAmountObj != null && timestampObj != null) {
-                        UUID bidId = mapper.convertValue(bidIdObj, UUID.class);
-                        UUID itemId = mapper.convertValue(itemIdObj, UUID.class);
-                        UUID bidderId = mapper.convertValue(bidderIdObj, UUID.class);
-                        String bidderName = mapper.convertValue(bidderNameObj, String.class);
-                        double bidAmount = mapper.convertValue(bidAmountObj, Double.class);
-                        double timestampSecs = mapper.convertValue(timestampObj, Double.class);
+                UUID itemId = mapper.convertValue(data.get("itemId"), UUID.class);
+                List<Map<String, Object>> bids = (List<Map<String, Object>>) data.get("bids");
+
+                if (bids != null) {
+                    ClientAuctionApp.frame.getAppController().getBiddingController().clearAllBids();
+                    for (Map<String, Object> bidData : bids) {
+                        UUID bidId = mapper.convertValue(bidData.get("id"), UUID.class);
+                        UUID bidderId = mapper.convertValue(bidData.get("bidderId"), UUID.class);
+                        double bidAmount = mapper.convertValue(bidData.get("amount"), Double.class);
+                        double timestampSecs = mapper.convertValue(bidData.get("timestamp"), Double.class);
                         Instant timestamp = Instant.ofEpochSecond((long) timestampSecs);
 
                         Bid bid = new Bid(bidId, itemId, bidderId, bidAmount, timestamp);
                         ClientAuctionApp.frame.getAppController().getBiddingController().addBid(itemId, bid);
-
-                        List<Bid> updatedBids = ClientAuctionApp.frame.getAppController().getBiddingController().getBidsByItemId(itemId);
-                        UIUpdateManager.getBidListUpdater().accept(updatedBids);
-                        
-                        // Atualiza labels conforme o lance recebido
-                        UIUpdateManager.getWinningBidderUpdater().accept("Winning Bidder: " + bidderName);
-                        UIUpdateManager.getCurrentBidUpdater().accept("Current Bid: " + bidAmount);
-                        double currentBid = ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().getCurrentBid();
-                        double bidIncrement = ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().getData().getBidIncrement();
-                        ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().setCurrentBid(currentBid + bidIncrement);
-                        logger.info("Current bid updated to {}", ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().getCurrentBid());
-                        
-                        boolean isUserBid = bidderId.equals(ClientAuctionApp.frame.getAppController().getSessionController().getUserLogged().getId());
-                        if (isUserBid) {
-                            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Your bid has been successfully registered.", "INFO", JOptionPane.INFORMATION_MESSAGE));
-                            logger.debug("Your bid has been successfully registered.");
-                        } else {
-                            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "User " + bidderName + " placed a bid", "INFO", JOptionPane.INFORMATION_MESSAGE));
-                            logger.debug("User: {} placed a bid.", bidderName);
-                        }
-
                     }
 
+                    // Atualizar a interface com o último lance recebido
+                    List<Bid> updatedBids = ClientAuctionApp.frame.getAppController().getBiddingController().getBidsByItemId(itemId);
+                    UIUpdateManager.getBidListUpdater().accept(updatedBids);
+
+                    Bid lastBid = updatedBids.get(updatedBids.size() - 1);
+                    UIUpdateManager.getWinningBidderUpdater().accept("Winning Bidder: " + lastBid.getBidderName());
+                    UIUpdateManager.getCurrentBidUpdater().accept("Current Bid: " + lastBid.getAmount());
+
+                    // Atualizar o valor atual do item
+                    double currentBid = ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().getCurrentBid();
+                    double bidIncrement = ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().getData().getBidIncrement();
+                    ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().setCurrentBid(currentBid + bidIncrement);
+                    logger.info("Current bid updated to {}", ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().getCurrentBid());
+
+                    // Notificar se foi o usuário que deu o lance
+                    boolean isUserBid = lastBid.getBidderId().equals(ClientAuctionApp.frame.getAppController().getSessionController().getUserLogged().getId());
+                    if (isUserBid) {
+                        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Your bid has been successfully registered.", "INFO", JOptionPane.INFORMATION_MESSAGE));
+                        logger.debug("Your bid has been successfully registered.");
+                    } else {
+                        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "User " + lastBid.getBidderName() + " placed a bid", "INFO", JOptionPane.INFORMATION_MESSAGE));
+                        logger.debug("User: {} placed a bid.", lastBid.getBidderName());
+                    }
                 }
             });
         } catch (JsonProcessingException ex) {
             logger.error("Error parsing message {} to json", message, ex);
         }
     }
-
 }
