@@ -128,27 +128,28 @@ public class SignIn extends javax.swing.JPanel {
             if (signIn) {
                 logger.info("Logged in user"); // Requisitos cumpridos
                 JOptionPane.showMessageDialog(null, "Logged in user", "INFO", JOptionPane.PLAIN_MESSAGE);
+
+                ClientAuctionApp.frame.getAppController().getMulticastController().connect();
+                ObjectMapper mapper = JsonUtil.getObjectMapper();
+                Map<String, String> message = new HashMap<>();
+                message.put("status", "CLIENT_CONNECTED");
+
+                try {
+                    String jsonMessage = mapper.writeValueAsString(message);
+                    ClientAuctionApp.frame.getAppController().getMulticastController().send(jsonMessage);
+                } catch (JsonProcessingException ex) {
+                    logger.error("Error serializing CLIENT_CONNECTED message.", ex);
+                }
+
+                ClientAuctionApp.frame.clearForm(tfName, jpfPassword);
+                Frame.waitingRoom = new WaitingRoom();
+                ClientAuctionApp.frame.initNewPanel(Frame.waitingRoom);
+
             } else {
                 logger.warn("Failed to sign in user"); // Requisitos cumpridos
                 JOptionPane.showMessageDialog(null, "Failed to sign in user", "WARN", JOptionPane.ERROR_MESSAGE);
             }
 
-            ClientAuctionApp.frame.getAppController().getMulticastController().connect();
-//            ClientAuctionApp.frame.getAppController().getMulticastController().send("CLIENT_CONNECTED");
-            ObjectMapper mapper = JsonUtil.getObjectMapper();
-            Map<String, String> message = new HashMap<>();
-            message.put("status", "CLIENT_CONNECTED");
-
-            try {
-                String jsonMessage = mapper.writeValueAsString(message);
-                ClientAuctionApp.frame.getAppController().getMulticastController().send(jsonMessage);
-            } catch (JsonProcessingException ex) {
-                logger.error("Error serializing CLIENT_CONNECTED message.", ex);
-            }
-
-            ClientAuctionApp.frame.clearForm(tfName, jpfPassword);
-            Frame.waitingRoom = new WaitingRoom();
-            ClientAuctionApp.frame.initNewPanel(Frame.waitingRoom);
         }
     }//GEN-LAST:event_lbSignInMouseClicked
 

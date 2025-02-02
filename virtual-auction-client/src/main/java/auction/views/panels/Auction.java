@@ -2,16 +2,13 @@ package auction.views.panels;
 
 import auction.controllers.SessionController;
 import auction.controllers.UserController;
-import auction.dispatchers.MessageDispatcher;
-import auction.handlers.PlaceBid;
-import auction.handlers.TimeUpdate;
 import auction.main.ClientAuctionApp;
 import auction.models.Bid;
 import auction.models.Item;
 import auction.models.User;
-import auction.services.AuctionService;
 import auction.utils.FontUtil;
 import auction.utils.ImageUtil;
+import auction.utils.UIUpdateManager;
 import auction.views.components.ScrollBarCustom;
 import auction.views.panels.templates.Message;
 import java.awt.Dimension;
@@ -20,10 +17,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
@@ -45,11 +40,13 @@ public class Auction extends javax.swing.JPanel {
         customizeComponents();
         loadAuctionContent(currentItem);
 
-        MessageDispatcher dispatcher = ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher();
-        dispatcher.registerHandler("TIME-UPDATE", new TimeUpdate(new AuctionService(), lbTimer));
-        dispatcher.registerHandler("BID-UPDATED", new PlaceBid(new AuctionService()));
-        
-        ClientAuctionApp.frame.getAppController().getMulticastController().startListening(dispatcher::addMessage);
+        UIUpdateManager.setTimeUpdater(lbTimer::setText);
+        UIUpdateManager.setBidListUpdater(bids -> {
+            this.addMessage(bids);
+        });
+        UIUpdateManager.setWinningBidderUpdater(lbWinningBidder::setText);
+        UIUpdateManager.setCurrentBid(lbCurrentBid::setText);
+
 
         pnMessageDisplay.setLayout(null);
         spMessageDisplay.setVerticalScrollBar(new ScrollBarCustom());
@@ -57,12 +54,8 @@ public class Auction extends javax.swing.JPanel {
         UserController controller = ClientAuctionApp.frame.getAppController().getUserController();
         User userLogged = controller.getUserLogged(SessionController.getInstance());
         lbUsername.setText(userLogged.getName());
-        
-        // Teste manual de inserção de lances
-        List<Bid> bids = new ArrayList<>();
-        bids.add(new Bid(UUID.randomUUID(), userLogged.getId(), 100.0)); // Lance 1
-        bids.add(new Bid(UUID.randomUUID(), userLogged.getId(), 150.0)); // Lance 2
-        bids.add(new Bid(UUID.randomUUID(), userLogged.getId(), 200.0)); // Lance 3
+
+        List<Bid> bids = ClientAuctionApp.frame.getAppController().getBiddingController().getBidsByItemId(currentItem.getId());
         addMessage(bids);
     }
 
@@ -283,7 +276,6 @@ public class Auction extends javax.swing.JPanel {
 
     private void lbBidNowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBidNowMouseClicked
         ClientAuctionApp.frame.getAppController().getBiddingController().placeBid(currentItem);
-        
     }//GEN-LAST:event_lbBidNowMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

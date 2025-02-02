@@ -24,16 +24,40 @@ public class BiddingService {
         this.repository = repository;
     }
 
+    /**
+     * Retorna todos os lances organizados por item.
+     */
     public Map<UUID, List<Bid>> getBidsByItem() {
         return repository.getBidsByItem();
     }
 
-    public void storeBids(List<Bid> bids) {
-        repository.storeBids(bids);
+    /**
+     * Adiciona um lance a um item específico.
+     */
+    public void addBid(UUID itemId, Bid bid) {
+        if (itemId == null || bid == null) {
+            logger.warn("Attempted to add a bid with null values. ItemId: {}, Bid: {}", itemId, bid);
+            return;
+        }
+        repository.addBid(itemId, bid);
     }
 
-    public List<Bid> getBids() {
-        return repository.getBidsTemp();
+    /**
+     * Obtém os lances de um item específico.
+     */
+    public List<Bid> getBidsByItemId(UUID itemId) {
+        return repository.getBidsByItemId(itemId);
+    }
+
+    /**
+     * Remove todos os lances armazenados.
+     */
+    public void clearAllBids() {
+        repository.clearAllBids();
+    }
+    
+    public void addBids(UUID itemId, List<Bid> bids) {
+        repository.addBids(itemId, bids);
     }
 
     public void placeBid(Item currentItem) {

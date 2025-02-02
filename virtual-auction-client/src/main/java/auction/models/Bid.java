@@ -26,6 +26,16 @@ public class Bid {
         this.bidderName = user.getName();
     }
 
+    public Bid(UUID id, UUID itemId, UUID bidderId, double amount, Instant timestamp) {
+        this.id = id;
+        this.itemId = itemId;
+        this.bidderId = bidderId;
+        this.amount = amount;
+        this.timestamp = timestamp;
+        User user = ClientAuctionApp.frame.getAppController().getUserController().findById(bidderId).orElse(null);
+        this.bidderName = user.getName();
+    }
+
     public UUID getId() {
         return id;
     }
