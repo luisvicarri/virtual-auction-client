@@ -96,6 +96,7 @@ public class AuctionService {
 
     public void processBid(String message) {
         try {
+            JsonUtil.printFormattedJson(message);
             Response response = mapper.readValue(message, Response.class);
 
             response.getData().ifPresent(data -> {
