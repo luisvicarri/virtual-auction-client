@@ -1,10 +1,10 @@
 package auction.views.frames;
 
 import auction.controllers.AppController;
-import auction.views.panels.Auction;
-import auction.views.panels.SignIn;
-import auction.views.panels.SignUp;
-import auction.views.panels.WaitingRoom;
+import auction.views.panels.PnAuction;
+import auction.views.panels.PnSignIn;
+import auction.views.panels.PnSignUp;
+import auction.views.panels.PnWaitingRoom;
 import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -15,10 +15,10 @@ public class Frame extends javax.swing.JFrame {
 
     private final AppController appController;
     
-    public static SignIn signIn;
-    public static SignUp signUp;
-    public static Auction auction;
-    public static WaitingRoom waitingRoom;
+    public static PnSignIn pnSignIn;
+    public static PnSignUp pnSignUp;
+    public static PnAuction pnAuction;
+    public static PnWaitingRoom pnWaitingRoom;
     
     public Frame(AppController appController) {
         initComponents();
@@ -28,12 +28,12 @@ public class Frame extends javax.swing.JFrame {
     public AppController getAppController() {
         return appController;
     }
-    
+
     public void start() {
         this.setLayout(new BorderLayout());
 
-        signIn = new SignIn();
-        initNewPanel(signIn);
+        pnSignIn = new PnSignIn();
+        initNewPanel(pnSignIn);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }

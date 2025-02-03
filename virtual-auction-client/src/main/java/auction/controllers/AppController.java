@@ -1,6 +1,7 @@
 package auction.controllers;
 
 import auction.dispatchers.MessageDispatcher;
+import auction.handlers.AuctionEnded;
 import auction.handlers.AuctionInfo;
 import auction.handlers.AuctionStarted;
 import auction.handlers.PlaceBid;
@@ -39,6 +40,7 @@ public final class AppController {
         dispatcher.registerHandler("AUCTION-STARTED", new AuctionStarted(new AuctionService()));
         dispatcher.registerHandler("TIME-UPDATE", new TimeUpdate(new AuctionService()));
         dispatcher.registerHandler("AUCTION-INFO", new AuctionInfo(new AuctionService()));
+        dispatcher.registerHandler("AUCTION-ENDED", new AuctionEnded(new AuctionService()));
     }
 
     private BiddingController configBiddingController() {

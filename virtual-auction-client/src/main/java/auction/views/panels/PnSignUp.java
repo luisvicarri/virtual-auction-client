@@ -11,13 +11,13 @@ import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SignUp extends javax.swing.JPanel {
+public class PnSignUp extends javax.swing.JPanel {
 
-    private static final Logger logger = LoggerFactory.getLogger(SignUp.class);
+    private static final Logger logger = LoggerFactory.getLogger(PnSignUp.class);
     private final FontUtil fontUtil;
     private final ValidatorUtil validator;
 
-    public SignUp() {
+    public PnSignUp() {
         initComponents();
         fontUtil = new FontUtil();
         validator = new ValidatorUtil();
@@ -155,14 +155,14 @@ public class SignUp extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Failed to sign up user", "WARN", JOptionPane.ERROR_MESSAGE);
             }
             ClientAuctionApp.frame.clearForm(tfName, jpfPassword, jpfConfirmPass);
-            Frame.signIn = new SignIn();
-            ClientAuctionApp.frame.initNewPanel(Frame.signIn);
+            Frame.pnSignIn = new PnSignIn();
+            ClientAuctionApp.frame.initNewPanel(Frame.pnSignIn);
         }
     }//GEN-LAST:event_lbSignUpMouseClicked
 
     private void lbSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSignInMouseClicked
-        Frame.signIn = new SignIn();
-        ClientAuctionApp.frame.initNewPanel(Frame.signIn);
+        Frame.pnSignIn = new PnSignIn();
+        ClientAuctionApp.frame.initNewPanel(Frame.pnSignIn);
     }//GEN-LAST:event_lbSignInMouseClicked
 
 

@@ -8,13 +8,15 @@ import auction.models.dtos.Response;
 import auction.utils.JsonUtil;
 import auction.utils.UIUpdateManager;
 import auction.views.frames.Frame;
-import auction.views.panels.Auction;
+import auction.views.panels.PnAuction;
+import auction.views.panels.PnWaitingRoom;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
@@ -36,9 +38,9 @@ public class AuctionService {
 
             Response response = mapper.readValue(message, Response.class);
 
-            if ("AUCTION-STARTED".equals(response.getStatus()) ||
-                "AUCTION-INFO".equals(response.getStatus())) {
-                
+            if ("AUCTION-STARTED".equals(response.getStatus())
+                    || "AUCTION-INFO".equals(response.getStatus())) {
+
                 Map<String, Object> data = response.getData().orElseThrow();
                 Object itemObject = data.get("item");
 
@@ -60,8 +62,8 @@ public class AuctionService {
                 biddingController.addBids(itemId, bids);
 
                 // Criar o leilão e atualizar a interface gráfica
-                Frame.auction = new Auction(item);
-                ClientAuctionApp.frame.initNewPanel(Frame.auction);
+                Frame.pnAuction = new PnAuction(item);
+                ClientAuctionApp.frame.initNewPanel(Frame.pnAuction);
             }
         } catch (JsonProcessingException | IllegalArgumentException ex) {
             logger.error("Error processing auction message.", ex);
@@ -87,6 +89,23 @@ public class AuctionService {
                     );
 
                     UIUpdateManager.getTimeUpdater().accept(formattedDuration);
+
+                    if (duration.isZero()) {
+                        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(
+                                null,
+                                "The auction has closed.",
+                                "INFO",
+                                JOptionPane.INFORMATION_MESSAGE)
+                        );
+
+                        Response auctionEnded = new Response("AUCTION-ENDED", "Auction closed");
+                        ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().ifPresent(finalItem -> {
+                            auctionEnded.addData("finalItem", finalItem);
+                            ClientAuctionApp.frame.getAppController().getMulticastController().send(auctionEnded);
+                        });
+
+                    }
+
                 }
             });
         } catch (JsonProcessingException ex) {
@@ -126,10 +145,14 @@ public class AuctionService {
                     UIUpdateManager.getCurrentBidUpdater().accept("Current Bid: " + lastBid.getAmount());
 
                     // Atualizar o valor atual do item
-                    double currentBid = ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().getCurrentBid();
-                    double bidIncrement = ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().getData().getBidIncrement();
-                    ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().setCurrentBid(currentBid + bidIncrement);
-                    logger.info("Current bid updated to {}", ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().getCurrentBid());
+                    ClientAuctionApp.frame.getAppController().getItemController().getCurrentItem().ifPresent(currentItem -> {
+                        currentItem.setWinningBidder(Optional.of(lastBid.getBidderId()));
+                        
+                        double currentBid = currentItem.getCurrentBid();
+                        double bidIncrement = currentItem.getData().getBidIncrement();
+                        currentItem.setCurrentBid(currentBid + bidIncrement);
+                        logger.info("Current bid updated to {}", currentItem.getCurrentBid());
+                    });
 
                     // Notificar se foi o usuário que deu o lance
                     boolean isUserBid = lastBid.getBidderId().equals(ClientAuctionApp.frame.getAppController().getSessionController().getUserLogged().getId());
@@ -144,6 +167,52 @@ public class AuctionService {
             });
         } catch (JsonProcessingException ex) {
             logger.error("Error parsing message {} to json", message, ex);
+        }
+    }
+
+    public void auctionEnded(String message) {
+        try {
+            if (!message.trim().startsWith("{")) {
+                logger.info("Message ignored:" + message);
+                return;
+            }
+
+            JsonUtil.printFormattedJson(message);
+            Response response = mapper.readValue(message, Response.class);
+            if (response.getMessage().equals("The bid did not reach the requested amount")
+                    || response.getMessage().equals("Congratulations you made the winning bid")) {
+                response.getData().ifPresent(data -> {
+                    UUID bidderId = mapper.convertValue(data.get("bidderId"), UUID.class);
+                    boolean isUserBid = bidderId.equals(ClientAuctionApp.frame.getAppController().getSessionController().getUserLogged().getId());
+                    if (isUserBid) {
+
+                        if (response.getMessage().equals("The bid did not reach the requested amount")) {
+                            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(
+                                    null,
+                                    """
+                                    Your bid did not reach the requested amount.
+                                    Bid denied by the administrator.
+                                    """,
+                                    "WARN",
+                                    JOptionPane.WARNING_MESSAGE)
+                            );
+                        } else {
+                            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(
+                                    null,
+                                    "Congratulations, you made the highest bid and won the item.",
+                                    "INFO",
+                                    JOptionPane.INFORMATION_MESSAGE)
+                            );
+                        }
+
+                    }
+                });
+            }
+
+            Frame.pnWaitingRoom = new PnWaitingRoom();
+            ClientAuctionApp.frame.initNewPanel(Frame.pnWaitingRoom);
+        } catch (JsonProcessingException ex) {
+            logger.error("Error processing auction message.", ex);
         }
     }
 }

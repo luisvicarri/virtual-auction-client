@@ -15,13 +15,13 @@ import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SignIn extends javax.swing.JPanel {
+public class PnSignIn extends javax.swing.JPanel {
 
-    private static final Logger logger = LoggerFactory.getLogger(SignIn.class);
+    private static final Logger logger = LoggerFactory.getLogger(PnSignIn.class);
     private final FontUtil fontUtil;
     private final ValidatorUtil validator;
 
-    public SignIn() {
+    public PnSignIn() {
         initComponents();
         fontUtil = new FontUtil();
         validator = new ValidatorUtil();
@@ -142,8 +142,8 @@ public class SignIn extends javax.swing.JPanel {
                 }
 
                 ClientAuctionApp.frame.clearForm(tfName, jpfPassword);
-                Frame.waitingRoom = new WaitingRoom();
-                ClientAuctionApp.frame.initNewPanel(Frame.waitingRoom);
+                Frame.pnWaitingRoom = new PnWaitingRoom();
+                ClientAuctionApp.frame.initNewPanel(Frame.pnWaitingRoom);
 
             } else {
                 logger.warn("Failed to sign in user"); // Requisitos cumpridos
@@ -154,8 +154,8 @@ public class SignIn extends javax.swing.JPanel {
     }//GEN-LAST:event_lbSignInMouseClicked
 
     private void lbSignUpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSignUpMouseClicked
-        Frame.signUp = new SignUp();
-        ClientAuctionApp.frame.initNewPanel(Frame.signUp);
+        Frame.pnSignUp = new PnSignUp();
+        ClientAuctionApp.frame.initNewPanel(Frame.pnSignUp);
     }//GEN-LAST:event_lbSignUpMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -2,6 +2,7 @@ package auction.controllers;
 
 import auction.models.Item;
 import auction.services.ItemService;
+import java.util.Optional;
 
 public class ItemController {
 
@@ -21,7 +22,7 @@ public class ItemController {
     /**
      * Obtém o item atual.
      */
-    public Item getCurrentItem() {
+    public Optional<Item> getCurrentItem() {
         return service.getCurrentItem();
     }
 

@@ -2,6 +2,7 @@ package auction.services;
 
 import auction.models.Item;
 import auction.repositories.ItemRepository;
+import java.util.Optional;
 
 public class ItemService {
 
@@ -21,7 +22,7 @@ public class ItemService {
     /**
      * Obtém o item atual.
      */
-    public Item getCurrentItem() {
+    public Optional<Item> getCurrentItem() {
         return repository.getCurrentItem();
     }
 

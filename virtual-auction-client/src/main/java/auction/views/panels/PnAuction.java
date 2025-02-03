@@ -26,13 +26,13 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-public class Auction extends javax.swing.JPanel {
+public class PnAuction extends javax.swing.JPanel {
 
     private final ImageUtil imageUtil;
     private final FontUtil fontUtil;
     private final Item currentItem;
 
-    public Auction(Item currentItem) {
+    public PnAuction(Item currentItem) {
         initComponents();
         imageUtil = new ImageUtil();
         fontUtil = new FontUtil();

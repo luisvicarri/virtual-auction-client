@@ -3,9 +3,9 @@ package auction.views.panels;
 import auction.dispatchers.MessageDispatcher;
 import auction.main.ClientAuctionApp;
 
-public class WaitingRoom extends javax.swing.JPanel {
+public class PnWaitingRoom extends javax.swing.JPanel {
 
-    public WaitingRoom() {
+    public PnWaitingRoom() {
         initComponents();
         MessageDispatcher dispatcher = ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher();
         ClientAuctionApp.frame.getAppController().getMulticastController().startListening(dispatcher::addMessage);
