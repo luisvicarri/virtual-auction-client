@@ -30,13 +30,15 @@ public class AuctionService {
     public void startAuction(String message) {
         try {
             if (!message.trim().startsWith("{")) {
-                logger.info("Mensagem ignorada: " + message);
+                logger.info("Message ignored:" + message);
                 return;
             }
 
             Response response = mapper.readValue(message, Response.class);
 
-            if ("AUCTION-STARTED".equals(response.getStatus())) {
+            if ("AUCTION-STARTED".equals(response.getStatus()) ||
+                "AUCTION-INFO".equals(response.getStatus())) {
+                
                 Map<String, Object> data = response.getData().orElseThrow();
                 Object itemObject = data.get("item");
 
@@ -61,8 +63,8 @@ public class AuctionService {
                 Frame.auction = new Auction(item);
                 ClientAuctionApp.frame.initNewPanel(Frame.auction);
             }
-        } catch (JsonProcessingException | IllegalArgumentException e) {
-            logger.error("Erro ao processar mensagem do leilão.", e);
+        } catch (JsonProcessingException | IllegalArgumentException ex) {
+            logger.error("Error processing auction message.", ex);
         }
     }
 
@@ -71,8 +73,8 @@ public class AuctionService {
             Response response = mapper.readValue(message, Response.class);
             response.getData().ifPresent(data -> {
                 Object timeObj = data.get("timeLeft");
-                if (timeObj instanceof Number) {
-                    long timeLeftSeconds = ((Number) timeObj).longValue(); // Obtém o tempo em segundos
+                if (timeObj instanceof Number number) {
+                    long timeLeftSeconds = number.longValue(); // Obtém o tempo em segundos
 
                     // Converte para Duration
                     Duration duration = Duration.ofSeconds(timeLeftSeconds);

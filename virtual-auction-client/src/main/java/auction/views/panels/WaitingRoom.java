@@ -1,23 +1,13 @@
 package auction.views.panels;
 
 import auction.dispatchers.MessageDispatcher;
-import auction.handlers.AuctionStarted;
 import auction.main.ClientAuctionApp;
-import auction.services.AuctionService;
-import auction.utils.JsonUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class WaitingRoom extends javax.swing.JPanel {
-
-    private final ObjectMapper mapper = JsonUtil.getObjectMapper();
-    private static final Logger logger = LoggerFactory.getLogger(WaitingRoom.class);
 
     public WaitingRoom() {
         initComponents();
         MessageDispatcher dispatcher = ClientAuctionApp.frame.getAppController().getMulticastController().getDispatcher();
-        dispatcher.registerHandler("AUCTION-STARTED", new AuctionStarted(new AuctionService()));
         ClientAuctionApp.frame.getAppController().getMulticastController().startListening(dispatcher::addMessage);
     }
 
