@@ -10,6 +10,8 @@ import auction.proxies.UserServiceProxy;
 import auction.repositories.BiddingRepository;
 import auction.repositories.ItemRepository;
 import auction.repositories.UserRepository;
+import auction.security.KeyController;
+import auction.security.KeyService;
 import auction.services.AuctionService;
 import auction.services.BiddingService;
 import auction.services.ItemService;
@@ -23,6 +25,7 @@ public final class AppController {
     private final SessionController sessionController;
     private final MulticastController multicastController;
     private final BiddingController biddingController;
+    private final KeyController keyController;
 
     public AppController() {
         this.userController = configUserController();
@@ -30,6 +33,7 @@ public final class AppController {
         this.multicastController = configMulticastController();
         this.sessionController = SessionController.getInstance();
         this.biddingController = configBiddingController();
+        this.keyController = configKeyController();
 
         addHandlers();
     }
@@ -43,6 +47,11 @@ public final class AppController {
         dispatcher.registerHandler("AUCTION-ENDED", new AuctionEnded(new AuctionService()));
     }
 
+    private KeyController configKeyController() {
+        KeyService service = new KeyService();
+        return new KeyController(service);
+    }
+    
     private BiddingController configBiddingController() {
         BiddingRepository repository = new BiddingRepository();
         BiddingService service = new BiddingService(repository);
@@ -85,6 +94,10 @@ public final class AppController {
 
     public BiddingController getBiddingController() {
         return biddingController;
+    }
+
+    public KeyController getKeyController() {
+        return keyController;
     }
 
 }

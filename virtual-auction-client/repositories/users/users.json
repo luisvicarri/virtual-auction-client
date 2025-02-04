@@ -1,12 +1,8 @@
 {
-  "ebae1820-e61c-4c02-9542-3959084d872c" : {
-    "id" : "ebae1820-e61c-4c02-9542-3959084d872c",
-    "name" : "Admin",
-    "hashedPassword" : "$2a$10$OGUssnCTnqJwWweMUETCquGclj7Cwj2A71Zp5XP.GiW3elZJgokxW"
-  },
-  "869d6dd6-138e-4438-8bd6-af071ef511f3" : {
-    "id" : "869d6dd6-138e-4438-8bd6-af071ef511f3",
+  "9c5eca44-bd8f-4ea1-b1f8-2ac80cbbd9ef" : {
+    "id" : "9c5eca44-bd8f-4ea1-b1f8-2ac80cbbd9ef",
     "name" : "Test",
-    "hashedPassword" : "$2a$10$HPzdXP6zYF3yzSBxsjMdh..xZ/fn9/KnVfLWreNgSZpXp4tx5nura"
+    "hashedPassword" : "$2a$10$.z52ams3LLqi.vi.8/68XOOzfHny70H3ewozGaemPv.8bgmjZd/S2",
+    "encodedPublicKey" : "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAupv/WV/Uk/5oy4zAHWufeQk7nG/meokVWTtPjn6LboT0LEMTWLQUtGpeVbUZRQFihXIwQT3A9k5PGkrPFlP3FkDkH/IGdzma2TGeC0AoRMqD0L6ijf32oYnouFamkvbfdy8nV/NeQ9bdFwDcACpRXKzlN0qyZhFKli1TT8hgG5C2AyU8UK5wPcck/HV/tVEWg/swE4X7cYJnGGm0UObnGwD7hzXKGmFjyGQZHmdDoJXmupSnhet5epuePJxvKnSbWIJtpQ3T9pNtIOQBaN1DZuPTc2atYFq/6SI350Nq+AlnC+GiqTTs40SiacDhcDW7mBNCOw5FxmPCGWwAsHsjR3DQqdxSoQZvpjhJjsO9US6GjCCMHzAiwX9peqhrYQ27DEUSHWkAzYhuq7bdipS7BYrMb/Uz5B6dVRPLkl9hsVLg7R49To4LobWIyzyQhUOPSh/rcFsawuNeOwfmqLbs7in6I5wNE7N6HCK8Q2SSUU+gFi1xwyj4NPeNiXlr3IIKfQ9y/+UtaRixRzVIt8gYxQuKFrO3eKR7TZq0t7nCa+smg3FKFZ/TkxWoW7FSBu8Mkp3eTgYez/QCNcxVusxCMEvFu/ycOU0BhxvGowt3KiB6fVC7eep43qcldZd1xA9kdsQ2Cr3cuc3o8aGwsXAw5tXDWs8QdpSabyDUpZN4QNMCAwEAAQ=="
   }
 }

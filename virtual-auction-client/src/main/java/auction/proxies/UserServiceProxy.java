@@ -37,7 +37,8 @@ public class UserServiceProxy implements UserServiceInterface {
                 "SIGN-IN",
                 name,
                 password,
-                id
+                id,
+                null
         );
         Response response = sendRequest(request);
         if (response != null && "SUCCESS".equals(response.getStatus())) {
@@ -57,7 +58,8 @@ public class UserServiceProxy implements UserServiceInterface {
                 "SIGN-UP",
                 newUser.getName(),
                 newUser.getHashedPassword(),
-                null
+                null,
+                Optional.of(newUser.getEncodedPublicKey())
         );
         Response response = sendRequest(request);
 
@@ -72,7 +74,9 @@ public class UserServiceProxy implements UserServiceInterface {
     }
 
     private Response sendRequest(Request request) {
-        try ( Socket socket = new Socket(host, port);  PrintWriter out = new PrintWriter(socket.getOutputStream(), true);  BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+        try (Socket socket = new Socket(host, port);
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             String requestJson = mapper.writeValueAsString(request);
             logger.info("Sending request to server: {}", requestJson);
