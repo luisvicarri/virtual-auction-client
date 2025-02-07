@@ -71,7 +71,6 @@ public class User {
         return ClientAuctionApp.frame.getAppController().getKeyController().getPublicKey(encodedPublicKey);
     }
 
-    @JsonIgnore
     public String getEncodedPrivateKey() {
         return encodedPrivateKey;
     }

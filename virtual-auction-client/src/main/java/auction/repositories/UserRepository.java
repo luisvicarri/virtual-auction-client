@@ -93,7 +93,7 @@ public class UserRepository {
     private void loadUsers() {
         if (file.exists()) {
             try {
-                users = mapper.readValue(file, new TypeReference<Map<UUID, User>>() {});
+                users = mapper.readValue(file, new TypeReference<Map<UUID, User>>(){});
             } catch (IOException ex) {
                 logger.error("Error loading users", ex);
             }
