@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -74,7 +75,7 @@ public class UserServiceProxy implements UserServiceInterface {
                     String userId = data.get("userId").toString();
                     newUser.setId(UUID.fromString(userId));
                     logger.info("User registered successfully: {}", newUser.getId());
-                    
+
                     String encodedServerPublicKey = data.get("server-public-key").toString();
                     ClientAuctionApp.frame.getAppController().getKeyController().saveKey(encodedServerPublicKey);
                 });
@@ -106,9 +107,7 @@ public class UserServiceProxy implements UserServiceInterface {
     }
 
     private Response sendRequest(String requestJson, String signature) {
-        try (Socket socket = new Socket(host, port);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+        try ( Socket socket = new Socket(host, port);  PrintWriter out = new PrintWriter(socket.getOutputStream(), true);  BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             logger.info("Sending request to server: {}", requestJson);
             out.println(requestJson);
@@ -118,9 +117,35 @@ public class UserServiceProxy implements UserServiceInterface {
                 out.println(); // Envia uma linha vazia para não quebrar a leitura do servidor
             }
 
+//            String responseJson = in.readLine();
+//            logger.info("Received response from server: {}", responseJson);
             String responseJson = in.readLine();
-            logger.info("Received response from server: {}", responseJson);
+            String responseSignature = in.readLine(); // Agora lemos a assinatura também
+            logger.info("Received response: {}", responseJson);
+            logger.info("Received signature: {}", responseSignature);
 
+            // Identificar o tipo de requisição
+            Request request = mapper.readValue(requestJson, Request.class);
+            boolean requiresSignatureValidation = "SIGN-IN".equals(request.getStatus());
+
+            if (requiresSignatureValidation) {
+                if (responseSignature == null || responseSignature.isEmpty()) {
+                    logger.warn("Server response is not signed!");
+                    return null;
+                }
+
+                // Obter chave pública do servidor
+                PublicKey serverPublicKey = ClientAuctionApp.frame.getAppController()
+                        .getKeyController()
+                        .getServerPublicKey();
+
+                // Validar assinatura
+                boolean validSignature = securityMiddleware.verifyRequestWithPublicKey(responseJson, responseSignature, serverPublicKey);
+                if (!validSignature) {
+                    logger.warn("Invalid signature on server response!");
+                    return null;
+                }
+            }
             return mapper.readValue(responseJson, Response.class);
 
         } catch (IOException ex) {

@@ -32,4 +32,7 @@ public class KeyController {
         service.saveKey(encodedKey);
     }
     
+    public PublicKey getServerPublicKey() {
+        return service.getServerPublicKey();
+    }
 }

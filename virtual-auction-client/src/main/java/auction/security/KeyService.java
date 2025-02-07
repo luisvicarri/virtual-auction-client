@@ -70,4 +70,8 @@ public class KeyService {
     public void saveKey(String encodedKey) {
         repository.saveServerPublicKey(encodedKey);
     }
+    
+    public PublicKey getServerPublicKey() {
+        return repository.getServerPublicKey();
+    }
 }
