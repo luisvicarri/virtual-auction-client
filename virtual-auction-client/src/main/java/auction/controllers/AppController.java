@@ -11,6 +11,7 @@ import auction.repositories.BiddingRepository;
 import auction.repositories.ItemRepository;
 import auction.repositories.UserRepository;
 import auction.security.KeyController;
+import auction.security.KeyRepository;
 import auction.security.KeyService;
 import auction.services.AuctionService;
 import auction.services.BiddingService;
@@ -48,7 +49,8 @@ public final class AppController {
     }
 
     private KeyController configKeyController() {
-        KeyService service = new KeyService();
+        KeyRepository repository = new KeyRepository();
+        KeyService service = new KeyService(repository);
         return new KeyController(service);
     }
     

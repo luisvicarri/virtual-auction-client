@@ -16,7 +16,12 @@ import org.slf4j.LoggerFactory;
 public class KeyService {
 
     private static final Logger logger = LoggerFactory.getLogger(KeyService.class);
+    private final KeyRepository repository;
 
+    public KeyService(KeyRepository repository) {
+        this.repository = repository;
+    }
+    
     public KeyPair generateKeyPair() {
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
@@ -56,5 +61,13 @@ public class KeyService {
             logger.error("Failed to generate private key: Invalid key specification", ex);
         }
         return null;
+    }
+    
+    public PublicKey loadKey() {
+        return repository.loadServerPublicKey();
+    }
+    
+    public void saveKey(String encodedKey) {
+        repository.saveServerPublicKey(encodedKey);
     }
 }

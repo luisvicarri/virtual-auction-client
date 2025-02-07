@@ -23,5 +23,13 @@ public class KeyController {
     public PrivateKey getPrivateKey(String encodedPrivateKey) {
         return service.getPrivateKey(encodedPrivateKey);
     }
-
+    
+    public PublicKey loadKey() {
+        return service.loadKey();
+    }
+    
+    public void saveKey(String encodedKey) {
+        service.saveKey(encodedKey);
+    }
+    
 }

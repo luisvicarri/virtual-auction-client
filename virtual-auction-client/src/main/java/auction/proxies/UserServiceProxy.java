@@ -74,6 +74,9 @@ public class UserServiceProxy implements UserServiceInterface {
                     String userId = data.get("userId").toString();
                     newUser.setId(UUID.fromString(userId));
                     logger.info("User registered successfully: {}", newUser.getId());
+                    
+                    String encodedServerPublicKey = data.get("server-public-key").toString();
+                    ClientAuctionApp.frame.getAppController().getKeyController().saveKey(encodedServerPublicKey);
                 });
 
                 return true;
@@ -103,7 +106,9 @@ public class UserServiceProxy implements UserServiceInterface {
     }
 
     private Response sendRequest(String requestJson, String signature) {
-        try ( Socket socket = new Socket(host, port);  PrintWriter out = new PrintWriter(socket.getOutputStream(), true);  BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+        try (Socket socket = new Socket(host, port);
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             logger.info("Sending request to server: {}", requestJson);
             out.println(requestJson);
