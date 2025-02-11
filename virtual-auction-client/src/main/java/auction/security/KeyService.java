@@ -10,6 +10,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import javax.crypto.SecretKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,5 +74,13 @@ public class KeyService {
     
     public PublicKey getServerPublicKey() {
         return repository.getServerPublicKey();
+    }
+    
+    public SecretKey loadSymmetricKey() {
+        return repository.loadSymmetricKey();
+    }
+    
+    public void saveSymmetrickey(byte[] encodedKey) {
+        repository.saveSymmetricKey(encodedKey);
     }
 }

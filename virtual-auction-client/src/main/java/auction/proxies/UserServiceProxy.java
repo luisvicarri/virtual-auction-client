@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -51,6 +52,10 @@ public class UserServiceProxy implements UserServiceInterface {
             if (response != null && "SUCCESS".equals(response.getStatus())) {
                 response.getData().ifPresent(data -> {
                     ConfigManager.set("MULTICAST_ADDRESS", data.get("MULTICAST_ADDRESS").toString());
+                    
+                    String encodedSymmetricKey = (String) data.get("symmetricKey");
+                    byte[] symmetricKey = Base64.getDecoder().decode(encodedSymmetricKey);                            
+                    ClientAuctionApp.frame.getAppController().getKeyController().saveSymmetrickey(symmetricKey);
                 });
                 return true;
             }
@@ -117,10 +122,8 @@ public class UserServiceProxy implements UserServiceInterface {
                 out.println(); // Envia uma linha vazia para não quebrar a leitura do servidor
             }
 
-//            String responseJson = in.readLine();
-//            logger.info("Received response from server: {}", responseJson);
             String responseJson = in.readLine();
-            String responseSignature = in.readLine(); // Agora lemos a assinatura também
+            String responseSignature = in.readLine();
             logger.info("Received response: {}", responseJson);
             logger.info("Received signature: {}", responseSignature);
 
@@ -140,7 +143,7 @@ public class UserServiceProxy implements UserServiceInterface {
                         .getServerPublicKey();
 
                 // Validar assinatura
-                boolean validSignature = securityMiddleware.verifyRequestWithPublicKey(responseJson, responseSignature, serverPublicKey);
+                boolean validSignature = securityMiddleware.verifyRequest(responseJson, responseSignature, serverPublicKey);
                 if (!validSignature) {
                     logger.warn("Invalid signature on server response!");
                     return null;

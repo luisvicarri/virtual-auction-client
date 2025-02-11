@@ -3,6 +3,7 @@ package auction.security;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import javax.crypto.SecretKey;
 
 public class KeyController {
 
@@ -34,5 +35,13 @@ public class KeyController {
     
     public PublicKey getServerPublicKey() {
         return service.getServerPublicKey();
+    }
+    
+    public SecretKey loadSymmetricKey() {
+        return service.loadSymmetricKey();
+    }
+    
+    public void saveSymmetrickey(byte[] encodedKey) {
+        service.saveSymmetrickey(encodedKey);
     }
 }
