@@ -1,11 +1,7 @@
 package auction.security;
 
-import auction.main.ClientAuctionApp;
-import auction.models.User;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.util.Optional;
-import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,9 +9,11 @@ public class SecurityMiddleware {
     
     private static final Logger logger = LoggerFactory.getLogger(SecurityMiddleware.class);
     private final DigitalSignatureUtil dSignatureUtil;
-    
+    private final AsymmetricUtil asymmetricUtil;
+
     public SecurityMiddleware() {
         this.dSignatureUtil = new DigitalSignatureUtil();
+        this.asymmetricUtil = new AsymmetricUtil();
     }
 
     /**
@@ -48,5 +46,23 @@ public class SecurityMiddleware {
             logger.warn("Signature verification failed with server public key");
         }
         return isValid;
+    }
+    
+    /**
+     * (en-US) Encrypts a JSON message using the receiver's public key.
+     * (pt-BR) Criptografa uma mensagem JSON usando a chave pública do destinatário.
+     */
+    public String encryptMessage(String message, PublicKey publicKey) {
+        logger.info("Encrypting message for secure transmission...");
+        return asymmetricUtil.encrypt(message, publicKey);
+    }
+
+    /**
+     * (en-US) Decrypts a received message using the user's private key.
+     * (pt-BR) Descriptografa uma mensagem recebida usando a chave privada do usuário.
+     */
+    public String decryptMessage(String encryptedMessage, PrivateKey privateKey) {
+        logger.info("Decrypting received message...");
+        return asymmetricUtil.decrypt(encryptedMessage, privateKey);
     }
 }

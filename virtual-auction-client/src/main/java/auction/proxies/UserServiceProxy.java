@@ -18,6 +18,7 @@ import java.net.Socket;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -52,9 +53,9 @@ public class UserServiceProxy implements UserServiceInterface {
             if (response != null && "SUCCESS".equals(response.getStatus())) {
                 response.getData().ifPresent(data -> {
                     ConfigManager.set("MULTICAST_ADDRESS", data.get("MULTICAST_ADDRESS").toString());
-                    
+
                     String encodedSymmetricKey = (String) data.get("symmetricKey");
-                    byte[] symmetricKey = Base64.getDecoder().decode(encodedSymmetricKey);                            
+                    byte[] symmetricKey = Base64.getDecoder().decode(encodedSymmetricKey);
                     ClientAuctionApp.frame.getAppController().getKeyController().saveSymmetrickey(symmetricKey);
                 });
                 return true;
@@ -136,6 +137,14 @@ public class UserServiceProxy implements UserServiceInterface {
                     logger.warn("Server response is not signed!");
                     return null;
                 }
+
+                Map<String, Object> data = request.getData().orElseThrow(() -> new IllegalArgumentException("Missing data"));
+                UUID userId = data.containsKey("user_id") ? UUID.fromString(data.get("user_id").toString()) : null;
+
+                responseJson = securityMiddleware.decryptMessage(
+                        responseJson,
+                        getUserPrivateKey(userId)
+                );
 
                 // Obter chave pública do servidor
                 PublicKey serverPublicKey = ClientAuctionApp.frame.getAppController()

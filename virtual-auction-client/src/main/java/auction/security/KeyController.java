@@ -14,7 +14,7 @@ public class KeyController {
     }
 
     public KeyPair generateKeyPair() {
-        return service.generateKeyPair();
+        return service.generateAsymmetricKeys();
     }
     
     public PublicKey getPublicKey(String encodedPublicKey) {

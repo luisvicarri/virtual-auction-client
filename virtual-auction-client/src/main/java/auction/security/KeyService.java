@@ -18,50 +18,35 @@ public class KeyService {
 
     private static final Logger logger = LoggerFactory.getLogger(KeyService.class);
     private final KeyRepository repository;
+    private final AsymmetricUtil asymmetricUtil;
+    private final SymmetricUtil symmetricUtil;
 
     public KeyService(KeyRepository repository) {
         this.repository = repository;
+        this.asymmetricUtil = new AsymmetricUtil();
+        this.symmetricUtil = new SymmetricUtil();
     }
     
-    public KeyPair generateKeyPair() {
-        try {
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-            keyGen.initialize(4096);
-            return keyGen.generateKeyPair();
-        } catch (NoSuchAlgorithmException ex) {
-            logger.error("Failed to generate RSA key pair: Algorithm not found", ex);
-        }
-        return null;
+    public KeyPair generateAsymmetricKeys() {
+        return asymmetricUtil.generateRSAKeyPair();
     }
 
     public PublicKey getPublicKey(String encodedPublicKey) {
         try {
-            byte[] keyBytes = Base64.getDecoder().decode(encodedPublicKey);
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            return keyFactory.generatePublic(new X509EncodedKeySpec(keyBytes));
-        } catch (IllegalArgumentException ex) {
-            logger.error("Failed to decode public key: Invalid Base64 encoding", ex);
-        } catch (NoSuchAlgorithmException ex) {
-            logger.error("Failed to get public key: RSA algorithm not found", ex);
-        } catch (InvalidKeySpecException ex) {
-            logger.error("Failed to generate public key: Invalid key specification", ex);
+            return asymmetricUtil.decodePublicKey(encodedPublicKey);
+        } catch (Exception ex) {
+            logger.error("Failed to decode public key", ex);
+            return null;
         }
-        return null;
     }
 
     public PrivateKey getPrivateKey(String encodedPrivateKey) {
         try {
-            byte[] keyBytes = Base64.getDecoder().decode(encodedPrivateKey);
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            return keyFactory.generatePrivate(new PKCS8EncodedKeySpec(keyBytes));
-        } catch (IllegalArgumentException ex) {
-            logger.error("Failed to decode private key: Invalid Base64 encoding", ex);
-        } catch (NoSuchAlgorithmException ex) {
-            logger.error("Failed to get private key: RSA algorithm not found", ex);
-        } catch (InvalidKeySpecException ex) {
-            logger.error("Failed to generate private key: Invalid key specification", ex);
+            return asymmetricUtil.decodePrivateKey(encodedPrivateKey);
+        } catch (Exception ex) {
+            logger.error("Failed to decode public key", ex);
+            return null;
         }
-        return null;
     }
     
     public PublicKey loadKey() {

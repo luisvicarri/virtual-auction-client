@@ -57,7 +57,6 @@ public class User {
             KeyPair keyPair = ClientAuctionApp.frame.getAppController().getKeyController().generateKeyPair();
             this.encodedPrivateKey = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
             this.encodedPublicKey = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
-
         }
     }
     
