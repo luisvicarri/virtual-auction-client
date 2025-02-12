@@ -14,6 +14,10 @@ public class MulticastController {
         this.dispatcher = new MessageDispatcher();
     }
 
+    public void configMulticast() {
+        service.configMulticast();
+    }
+    
     public MessageDispatcher getDispatcher() {
         return dispatcher;
     }

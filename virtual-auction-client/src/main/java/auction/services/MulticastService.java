@@ -24,7 +24,7 @@ public class MulticastService {
 
     private static final Logger logger = LoggerFactory.getLogger(MulticastService.class);
 
-    private final String MULTICAST_ADDRESS;
+    private String MULTICAST_ADDRESS;
     private final int PORT;
     private final ObjectMapper mapper;
 
@@ -37,12 +37,15 @@ public class MulticastService {
     private IvParameterSpec iv;
 
     public MulticastService() {
-        this.MULTICAST_ADDRESS = ConfigManager.get("MULTICAST_ADDRESS");
-        this.PORT = Integer.parseInt(ConfigManager.get("MULTICAST_PORT"));
         this.mapper = JsonUtil.getObjectMapper();
         this.symmetricUtil = new SymmetricUtil();
+        this.PORT = Integer.parseInt(ConfigManager.get("MULTICAST_PORT"));
     }
 
+    public void configMulticast() {
+        this.MULTICAST_ADDRESS = ConfigManager.get("MULTICAST_ADDRESS");
+    }
+    
     private SecretKey getSymmetricKey() {
         if (symmetricKey == null) {
             symmetricKey = ClientAuctionApp.frame.getAppController()

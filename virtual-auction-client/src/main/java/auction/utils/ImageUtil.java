@@ -1,6 +1,7 @@
 package auction.utils;
 
 import java.awt.Image;
+import java.io.File;
 import javax.swing.ImageIcon;
 
 public class ImageUtil {
@@ -34,6 +35,18 @@ public class ImageUtil {
             return new ImageIcon(imgURL);
         } else {
             System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
+    
+    public ImageIcon createImageIconAbsolute(String path) {
+        if (path == null || path.isEmpty()) {
+            return null;
+        }
+        File file = new File(path);
+        if (file.exists()) {
+            return new ImageIcon(file.getAbsolutePath());
+        } else {
             return null;
         }
     }

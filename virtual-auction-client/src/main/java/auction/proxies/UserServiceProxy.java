@@ -53,6 +53,7 @@ public class UserServiceProxy implements UserServiceInterface {
             if (response != null && "SUCCESS".equals(response.getStatus())) {
                 response.getData().ifPresent(data -> {
                     ConfigManager.set("MULTICAST_ADDRESS", data.get("MULTICAST_ADDRESS").toString());
+                    ClientAuctionApp.frame.getAppController().getMulticastController().configMulticast();
 
                     String encodedSymmetricKey = (String) data.get("symmetricKey");
                     byte[] symmetricKey = Base64.getDecoder().decode(encodedSymmetricKey);

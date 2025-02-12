@@ -101,6 +101,9 @@ public class PnAuction extends javax.swing.JPanel {
         doc.setParagraphAttributes(0, doc.getLength(), style, false);
 
         ImageIcon originalIcon = imageUtil.createImageIcon(currentItem.getData().getItemImage());
+        if (originalIcon == null) {
+            originalIcon = imageUtil.createImageIconAbsolute(currentItem.getData().getItemImage());
+        }
         ImageIcon resizedIcon = imageUtil.resizeIcon(originalIcon, 330, 395);
         lbPhoto.setIcon(resizedIcon);
 
