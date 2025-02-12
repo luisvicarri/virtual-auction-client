@@ -1,16 +1,10 @@
 package auction.security;
 
-import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +20,7 @@ public class KeyService {
         this.asymmetricUtil = new AsymmetricUtil();
         this.symmetricUtil = new SymmetricUtil();
     }
-    
+
     public KeyPair generateAsymmetricKeys() {
         return asymmetricUtil.generateRSAKeyPair();
     }
@@ -48,24 +42,40 @@ public class KeyService {
             return null;
         }
     }
-    
+
     public PublicKey loadKey() {
         return repository.loadServerPublicKey();
     }
-    
+
     public void saveKey(String encodedKey) {
         repository.saveServerPublicKey(encodedKey);
     }
-    
+
     public PublicKey getServerPublicKey() {
         return repository.getServerPublicKey();
     }
-    
+
     public SecretKey loadSymmetricKey() {
         return repository.loadSymmetricKey();
     }
-    
+
     public void saveSymmetrickey(byte[] encodedKey) {
         repository.saveSymmetricKey(encodedKey);
+    }
+
+    public SecretKey getSymmetricKey() {
+        return repository.getSymmetricKey();
+    }
+
+    public IvParameterSpec loadIV() {
+        return repository.loadIV();
+    }
+
+    public void saveIV(byte[] ivBytes) {
+        repository.saveIV(ivBytes);
+    }
+    
+    public IvParameterSpec getIv() {
+        return repository.getIv();
     }
 }

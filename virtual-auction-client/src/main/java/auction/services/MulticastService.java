@@ -1,6 +1,7 @@
 package auction.services;
 
 import auction.main.ClientAuctionApp;
+import auction.security.SymmetricUtil;
 import auction.utils.ConfigManager;
 import auction.utils.JsonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,12 +15,14 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.function.Consumer;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MulticastService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MulticastService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MulticastService.class);
 
     private final String MULTICAST_ADDRESS;
     private final int PORT;
@@ -28,11 +31,34 @@ public class MulticastService {
     private MulticastSocket socket;
     private InetAddress group;
     private NetworkInterface networkInterface;
-    
+
+    private final SymmetricUtil symmetricUtil;
+    private SecretKey symmetricKey;
+    private IvParameterSpec iv;
+
     public MulticastService() {
         this.MULTICAST_ADDRESS = ConfigManager.get("MULTICAST_ADDRESS");
         this.PORT = Integer.parseInt(ConfigManager.get("MULTICAST_PORT"));
         this.mapper = JsonUtil.getObjectMapper();
+        this.symmetricUtil = new SymmetricUtil();
+    }
+
+    private SecretKey getSymmetricKey() {
+        if (symmetricKey == null) {
+            symmetricKey = ClientAuctionApp.frame.getAppController()
+                    .getKeyController()
+                    .loadSymmetricKey();
+        }
+        return symmetricKey;
+    }
+
+    private IvParameterSpec getIV() {
+        if (iv == null) {
+            iv = ClientAuctionApp.frame.getAppController()
+                    .getKeyController()
+                    .loadIV();
+        }
+        return iv;
     }
 
     /**
@@ -40,7 +66,7 @@ public class MulticastService {
      */
     public void connect() {
         try {
-            LOGGER.info("Trying to connect to multicast group at {}:{}", MULTICAST_ADDRESS, PORT);
+            logger.info("Trying to connect to multicast group at {}:{}", MULTICAST_ADDRESS, PORT);
 
             this.group = InetAddress.getByName(MULTICAST_ADDRESS);
             this.networkInterface = getNetworkInterface();
@@ -53,9 +79,9 @@ public class MulticastService {
             this.socket.setNetworkInterface(networkInterface);
             this.socket.joinGroup(new InetSocketAddress(group, PORT), networkInterface);
 
-            LOGGER.info("Connection to multicast group {}:{} succeeded.", MULTICAST_ADDRESS, PORT);
+            logger.info("Connection to multicast group {}:{} succeeded.", MULTICAST_ADDRESS, PORT);
         } catch (IOException e) {
-            LOGGER.error("Error connecting to multicast group.", e);
+            logger.error("Error connecting to multicast group.", e);
             throw new RuntimeException(e); // Propaga o erro para que o chamador saiba que não foi possível conectar
         }
     }
@@ -66,12 +92,12 @@ public class MulticastService {
     public void disconnect() {
         if (socket != null) {
             try {
-                LOGGER.info("Leaving multicast group {}:{}.", MULTICAST_ADDRESS, PORT);
+                logger.info("Leaving multicast group {}:{}.", MULTICAST_ADDRESS, PORT);
                 socket.leaveGroup(new InetSocketAddress(group, PORT), networkInterface);
                 socket.close();
-                LOGGER.info("Successfully disconnected from multicast group.");
+                logger.info("Successfully disconnected from multicast group.");
             } catch (IOException e) {
-                LOGGER.error("Error disconnecting from multicast group.", e);
+                logger.error("Error disconnecting from multicast group.", e);
             }
         }
     }
@@ -81,11 +107,14 @@ public class MulticastService {
      */
     public void send(String msg) {
         try {
-            LOGGER.info("Sending message: {}", msg);
-            byte[] data = msg.getBytes();
-            sendData(data);
+            String encryptedMsg = symmetricUtil.encrypt(
+                    msg,
+                    getSymmetricKey(),
+                    getIV()
+            );
+            sendData(encryptedMsg.getBytes());
         } catch (Exception e) {
-            LOGGER.error("Error sending message.", e);
+            logger.error("Error sending message.", e);
         }
     }
 
@@ -95,10 +124,14 @@ public class MulticastService {
     public void send(Object obj) {
         try {
             String json = mapper.writeValueAsString(obj);
-            LOGGER.info("Sending serialized object as JSON: {}", json);
-            sendData(json.getBytes());
+            String encryptedMsg = symmetricUtil.encrypt(
+                    json,
+                    getSymmetricKey(),
+                    getIV()
+            );
+            sendData(encryptedMsg.getBytes());
         } catch (IOException e) {
-            LOGGER.error("Error converting object to JSON.", e);
+            logger.error("Error converting object to JSON.", e);
         }
     }
 
@@ -107,12 +140,15 @@ public class MulticastService {
      */
     public String receiveString() {
         try {
-            LOGGER.info("Waiting for multicast message...");
-            String data = receiveData();
-            LOGGER.info("Message received: {}", data);
-            return data;
+            String encryptedData = receiveData();
+            String decryptedData = symmetricUtil.decrypt(
+                    encryptedData,
+                    getSymmetricKey(),
+                    getIV()
+            );
+            return decryptedData;
         } catch (IOException e) {
-            LOGGER.error("Error receiving message.", e);
+            logger.error("Error receiving message.", e);
         }
         return null;
     }
@@ -122,13 +158,17 @@ public class MulticastService {
      */
     public <T> T receiveObject(Class<T> type) {
         try {
-            String receivedJson = receiveData();
-            if (receivedJson != null) {
-                LOGGER.info("Received JSON message: {}", receivedJson);
-                return mapper.readValue(receivedJson, type);
+            String encryptedJson = receiveData();
+            if (encryptedJson != null) {
+                String decryptedJson = symmetricUtil.decrypt(
+                        encryptedJson,
+                        getSymmetricKey(),
+                        getIV()
+                );
+                return mapper.readValue(decryptedJson, type);
             }
         } catch (IOException e) {
-            LOGGER.error("Error deserializing JSON.", e);
+            logger.error("Error deserializing JSON.", e);
         }
         return null;
     }
@@ -141,7 +181,7 @@ public class MulticastService {
             DatagramPacket packet = new DatagramPacket(data, data.length, group, PORT);
             sendSocket.send(packet);
         } catch (IOException e) {
-            LOGGER.error("Error sending multicast packet.", e);
+            logger.error("Error sending multicast packet.", e);
         }
     }
 
@@ -164,12 +204,12 @@ public class MulticastService {
             while (interfaces.hasMoreElements()) {
                 NetworkInterface netIf = interfaces.nextElement();
                 if (!netIf.isLoopback() && netIf.isUp()) {
-                    LOGGER.info("Network interface found: {}", netIf.getDisplayName());
+                    logger.info("Network interface found: {}", netIf.getDisplayName());
                     return netIf;
                 }
             }
         } catch (SocketException e) {
-            LOGGER.error("Error searching for network interfaces.", e);
+            logger.error("Error searching for network interfaces.", e);
         }
         return null;
     }

@@ -57,6 +57,11 @@ public class UserServiceProxy implements UserServiceInterface {
                     String encodedSymmetricKey = (String) data.get("symmetricKey");
                     byte[] symmetricKey = Base64.getDecoder().decode(encodedSymmetricKey);
                     ClientAuctionApp.frame.getAppController().getKeyController().saveSymmetrickey(symmetricKey);
+
+                    String encodedIv = (String) data.get("iv");
+                    byte[] iv = Base64.getDecoder().decode(encodedIv);
+                    ClientAuctionApp.frame.getAppController().getKeyController().saveIV(iv);
+
                 });
                 return true;
             }

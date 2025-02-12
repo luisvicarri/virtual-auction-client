@@ -13,6 +13,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ public class KeyRepository {
     private final ObjectMapper mapper = JsonUtil.getObjectMapper();
     private PublicKey serverPublicKey;
     private SecretKey symmetricKey;
+    private IvParameterSpec iv;
 
     public KeyRepository() {
         this.serverPublicKey = loadServerPublicKey();
@@ -48,6 +50,14 @@ public class KeyRepository {
 
     public void setSymmetricKey(SecretKey symmetricKey) {
         this.symmetricKey = symmetricKey;
+    }
+
+    public IvParameterSpec getIv() {
+        return iv;
+    }
+
+    public void setIv(IvParameterSpec iv) {
+        this.iv = iv;
     }
 
     /**
@@ -169,5 +179,34 @@ public class KeyRepository {
         }
         return null;
     }
+    
+    public void saveIV(byte[] ivBytes) {
+        try {
+            String encodedIVBase64 = Base64.getEncoder().encodeToString(ivBytes);
+            Map<String, String> keyMap = file.exists() ? mapper.readValue(file, Map.class) : new HashMap<>();
+            keyMap.put("iv", encodedIVBase64);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, keyMap);
+            logger.info("Server's IV saved successfully.");
+            this.iv = new IvParameterSpec(ivBytes);
+        } catch (IOException ex) {
+            logger.error("Error saving IV: {}", ex.getMessage(), ex);
+        }
+    }
 
+    public IvParameterSpec loadIV() {
+        if (!file.exists()) {
+            logger.warn("Server IV's file does not exist.");
+            return null;
+        }
+        try {
+            Map<String, String> keyMap = mapper.readValue(file, Map.class);
+            String encodedIVBase64 = keyMap.get("iv");
+            if (encodedIVBase64 == null || encodedIVBase64.isEmpty()) return null;
+            byte[] decodedIV = Base64.getDecoder().decode(encodedIVBase64);
+            return new IvParameterSpec(decodedIV);
+        } catch (IOException ex) {
+            logger.error("Error loading IV: {}", ex.getMessage(), ex);
+        }
+        return null;
+    }
 }

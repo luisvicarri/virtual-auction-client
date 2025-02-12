@@ -4,6 +4,7 @@ import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 
 public class KeyController {
 
@@ -43,5 +44,21 @@ public class KeyController {
     
     public void saveSymmetrickey(byte[] encodedKey) {
         service.saveSymmetrickey(encodedKey);
+    }
+    
+    public SecretKey getSymmetricKey() {
+        return service.getSymmetricKey();
+    }
+    
+    public IvParameterSpec loadIV() {
+        return service.loadIV();
+    }
+    
+    public void saveIV(byte[] ivBytes) {
+        service.saveIV(ivBytes);
+    }
+    
+    public IvParameterSpec getIv() {
+        return service.getIv();
     }
 }
