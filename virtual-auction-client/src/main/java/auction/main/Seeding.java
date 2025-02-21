@@ -14,5 +14,4 @@ public class Seeding {
     public void start() {
         MessageDispatcher dispatcher = appController.getMulticastController().getDispatcher();
     }
-
 }

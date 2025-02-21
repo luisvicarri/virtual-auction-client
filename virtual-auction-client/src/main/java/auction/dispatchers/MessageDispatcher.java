@@ -42,10 +42,8 @@ public class MessageDispatcher {
     }
 
     private void dispatch(String message) {
-        // Aqui, você pode parsear o JSON e extrair o tipo da mensagem
-        logger.info("Dispatching message: {}", message); // <-- Log para ver a mensagem bruta
+        logger.info("Dispatching message: {}", message);
         String messageType = extractMessageType(message);
-        logger.info("Extracted message type: {}", messageType); // <-- Log para ver o tipo extraído
 
         MessageHandler handler = handlers.get(messageType);
         if (handler != null) {
@@ -56,11 +54,9 @@ public class MessageDispatcher {
     }
 
     private String extractMessageType(String message) {
-        // Aqui você pode usar uma biblioteca JSON (como Jackson ou Gson) para extrair o campo "status"
         try {
             JsonNode jsonNode = JsonUtil.getObjectMapper().readTree(message);
 
-            // Verifica se "status" existe, senão tenta "type"
             JsonNode statusNode = jsonNode.get("status");
             if (statusNode != null) {
                 return statusNode.asText();
@@ -71,9 +67,8 @@ public class MessageDispatcher {
                 return typeNode.asText();
             }
 
-            // Se nenhuma chave for encontrada, loga a mensagem problemática
             logger.error("Message without 'status' or 'type' field: {}", message);
-            return ""; // Retorna string vazia para evitar NullPointerException
+            return "";
         } catch (JsonProcessingException e) {
             logger.error("Error processing JSON: {}", message);
             return "";

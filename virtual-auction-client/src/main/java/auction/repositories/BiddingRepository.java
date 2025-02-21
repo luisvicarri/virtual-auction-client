@@ -14,16 +14,10 @@ public class BiddingRepository {
     private static final Logger logger = LoggerFactory.getLogger(BiddingRepository.class);
     private final Map<UUID, List<Bid>> bidsByItem = new HashMap<>();
 
-    /**
-     * Retorna o mapa de lances por item.
-     */
     public Map<UUID, List<Bid>> getBidsByItem() {
         return new HashMap<>(bidsByItem); // Retorna uma cópia para evitar alterações externas
     }
 
-    /**
-     * Adiciona um lance ao item especificado.
-     */
     public void addBid(UUID itemId, Bid bid) {
         if (itemId == null || bid == null) {
             logger.warn("Attempted to add a bid with null values. Item Id: {}, Bid Amount: {}", itemId, bid.getAmount());
@@ -33,16 +27,10 @@ public class BiddingRepository {
         logger.info("New bid added for item {}: {}", itemId, bid.getAmount());
     }
 
-    /**
-     * Obtém a lista de lances de um item específico.
-     */
     public List<Bid> getBidsByItemId(UUID itemId) {
         return bidsByItem.getOrDefault(itemId, new ArrayList<>());
     }
 
-    /**
-     * Remove todos os lances armazenados.
-     */
     public void clearAllBids() {
         bidsByItem.clear();
         logger.info("All bids have been cleared.");
@@ -56,5 +44,4 @@ public class BiddingRepository {
         bidsByItem.computeIfAbsent(itemId, k -> new ArrayList<>()).addAll(bids);
         logger.info("Added {} bids for item {}", bids.size(), itemId);
     }
-
 }

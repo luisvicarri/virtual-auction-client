@@ -33,5 +33,4 @@ public class SessionController {
     public boolean isLoggedIn() {
         return this.userLoggedIn != null;
     }
-
 }

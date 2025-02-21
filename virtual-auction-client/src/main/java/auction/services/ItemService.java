@@ -12,23 +12,14 @@ public class ItemService {
         this.repository = repository;
     }
 
-    /**
-     * Define o item atual.
-     */
     public void setCurrentItem(Item item) {
         repository.setCurrentItem(item);
     }
 
-    /**
-     * Obtém o item atual.
-     */
     public Optional<Item> getCurrentItem() {
         return repository.getCurrentItem();
     }
 
-    /**
-     * Limpa o item atual.
-     */
     public void clearCurrentItem() {
         repository.clearCurrentItem();
     }

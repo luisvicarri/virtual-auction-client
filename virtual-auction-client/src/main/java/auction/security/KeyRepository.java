@@ -60,12 +60,6 @@ public class KeyRepository {
         this.iv = iv;
     }
 
-    /**
-     * Salva a chave pública do servidor em um arquivo JSON.
-     *
-     * @param encodedServerPublicKey A chave pública do servidor codificada em
-     * Base64.
-     */
     public void saveServerPublicKey(String encodedServerPublicKey) {
         try {
             if (file.exists()) {
@@ -74,7 +68,7 @@ public class KeyRepository {
 
                 if (encodedServerPublicKey.equals(existingKey)) {
                     logger.info("Server's public key is already saved. No action required.");
-                    return; // Avoid unnecessary writing
+                    return;
                 }
             }
 
@@ -84,7 +78,6 @@ public class KeyRepository {
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, keyMap);
             logger.info("Server's public key saved successfully.");
 
-            // Update the internal variable
             byte[] publicKeyBytes = Base64.getDecoder().decode(encodedServerPublicKey);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             this.serverPublicKey = keyFactory.generatePublic(new X509EncodedKeySpec(publicKeyBytes));
@@ -95,11 +88,6 @@ public class KeyRepository {
         }
     }
 
-    /**
-     * Carrega a chave pública do servidor do arquivo JSON.
-     *
-     * @return A chave pública do servidor ou {@code null} se houver erro.
-     */
     public final PublicKey loadServerPublicKey() {
         if (!file.exists()) {
             logger.warn("Server public key file does not exist.");
@@ -137,7 +125,7 @@ public class KeyRepository {
 
                 if (encodedKeyBase64.equals(existingKey)) {
                     logger.info("Server's symmetric key is already saved. No action required.");
-                    return; // Evita escrita desnecessária
+                    return;
                 }
             }
 
@@ -147,7 +135,6 @@ public class KeyRepository {
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, keyMap);
             logger.info("Server's symmetric key saved successfully.");
 
-            // Atualiza a variável interna
             byte[] decodedKey = Base64.getDecoder().decode(encodedKeyBase64);
             this.symmetricKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 

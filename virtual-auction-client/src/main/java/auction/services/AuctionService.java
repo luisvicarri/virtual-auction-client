@@ -115,7 +115,6 @@ public class AuctionService {
 
     public void processBid(String message) {
         try {
-            JsonUtil.printFormattedJson(message);
             Response response = mapper.readValue(message, Response.class);
 
             response.getData().ifPresent(data -> {
@@ -177,7 +176,6 @@ public class AuctionService {
                 return;
             }
 
-            JsonUtil.printFormattedJson(message);
             Response response = mapper.readValue(message, Response.class);
             if (response.getMessage().equals("The bid did not reach the requested amount")
                     || response.getMessage().equals("Congratulations you made the winning bid")) {

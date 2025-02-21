@@ -20,5 +20,4 @@ public class AuctionStarted implements MessageHandler {
         logger.info("Processing auction start message: {}", message);
         service.startAuction(message);
     }
-    
 }

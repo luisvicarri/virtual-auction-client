@@ -10,9 +10,6 @@ public class ItemRepository {
     private static final Logger logger = LoggerFactory.getLogger(ItemRepository.class);
     private Optional<Item> currentItem = Optional.empty(); // Item atual do leilão
 
-    /**
-     * Define o item atual.
-     */
     public void setCurrentItem(Item item) {
         if (item == null) {
             logger.warn("Attempted to set a null item as the current item.");
@@ -23,16 +20,10 @@ public class ItemRepository {
         logger.info("Current item updated: {}", item);
     }
 
-    /**
-     * Obtém o item atual.
-     */
     public Optional<Item> getCurrentItem() {
         return currentItem;
     }
 
-    /**
-     * Limpa o item atual.
-     */
     public void clearCurrentItem() {
         this.currentItem = Optional.empty();
         logger.info("Current item has been cleared.");

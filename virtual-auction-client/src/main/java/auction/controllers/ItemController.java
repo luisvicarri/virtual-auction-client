@@ -12,23 +12,14 @@ public class ItemController {
         this.service = service;
     }
 
-    /**
-     * Define o item atual.
-     */
     public void setCurrentItem(Item item) {
         service.setCurrentItem(item);
     }
 
-    /**
-     * Obtém o item atual.
-     */
     public Optional<Item> getCurrentItem() {
         return service.getCurrentItem();
     }
 
-    /**
-     * Limpa o item atual.
-     */
     public void clearCurrentItem() {
         service.clearCurrentItem();
     }

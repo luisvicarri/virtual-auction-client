@@ -14,5 +14,4 @@ public class ClientAuctionApp {
         frame = new Frame(appController);
         frame.start();
     }
-
 }

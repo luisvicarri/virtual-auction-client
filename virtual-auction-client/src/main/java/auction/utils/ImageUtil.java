@@ -11,20 +11,17 @@ public class ImageUtil {
         int originalWidth = icon.getIconWidth();
         int originalHeight = icon.getIconHeight();
 
-        // Calcula a proporção
         double aspectRatio = (double) originalWidth / originalHeight;
 
         int newWidth = maxWidth;
         int newHeight = maxHeight;
 
-        // Ajusta as dimensões mantendo a proporção
         if (originalWidth > originalHeight) {
             newHeight = (int) (maxWidth / aspectRatio);
         } else {
             newWidth = (int) (maxHeight * aspectRatio);
         }
 
-        // Redimensiona a imagem
         Image resizedImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImg);
     }
