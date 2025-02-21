@@ -119,7 +119,9 @@ public class UserServiceProxy implements UserServiceInterface {
     }
 
     private Response sendRequest(String requestJson, String signature) {
-        try ( Socket socket = new Socket(host, port);  PrintWriter out = new PrintWriter(socket.getOutputStream(), true);  BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+        try (Socket socket = new Socket(host, port);
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             logger.info("Sending request to server: {}", requestJson);
             out.println(requestJson);
